@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "22965ECB-FE8E-4F15-A33A-0BCBE9E50733"
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
+         <BreakpointContent
+            uuid = "37B0453C-8FF3-49A8-8043-14D104D76A6D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            scope = "1"
+            stopOnStyle = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "280DFBEE-9D41-48F7-BA9E-08364A4E7D45"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JawboneUP/&#x767b;&#x5f55;&#x6ce8;&#x518c;/Controllers/LxmSetSubInfoVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "364"
+            endingLineNumber = "364"
+            landmarkName = "-addBtnClick:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E1970708-ED98-484C-95A9-B345C29C42BA"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JawboneUP/&#x767b;&#x5f55;&#x6ce8;&#x518c;/Controllers/LxmTeacherInfoVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
+            landmarkName = "-loadData"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "E1970708-ED98-484C-95A9-B345C29C42BA - bb9864798b020777"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[LxmTeacherInfoVC loadData]"
+                  moduleName = "&#x5b88;&#x62a4;&#x9f2c;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lixiaoman/Documents/%E7%A0%81%E4%BA%91%E6%89%8B%E7%8E%AF/JawboneUP/JawboneUP/%E7%99%BB%E5%BD%95%E6%B3%A8%E5%86%8C/Controllers/LxmTeacherInfoVC.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "83"
+                  endingLineNumber = "83"
+                  offsetFromSymbolStart = "108">
+               </Location>
+               <Location
+                  uuid = "E1970708-ED98-484C-95A9-B345C29C42BA - ccff234260cb5ce1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__28-[LxmTeacherInfoVC loadData]_block_invoke"
+                  moduleName = "&#x5b88;&#x62a4;&#x9f2c;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lixiaoman/Documents/%E7%A0%81%E4%BA%91%E6%89%8B%E7%8E%AF/JawboneUP/JawboneUP/%E7%99%BB%E5%BD%95%E6%B3%A8%E5%86%8C/Controllers/LxmTeacherInfoVC.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "84"
+                  endingLineNumber = "84"
+                  offsetFromSymbolStart = "92">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DCDF0A9E-DD1F-47E3-8759-F4F147FBCDB7"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JawboneUP/&#x9996;&#x9875;/Controllers/LxmNewHomeVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "156"
+            endingLineNumber = "156"
+            landmarkName = "-viewDidLoad"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

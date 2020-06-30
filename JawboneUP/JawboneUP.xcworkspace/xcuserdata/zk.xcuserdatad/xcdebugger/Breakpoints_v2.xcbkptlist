@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "4F4B7DCD-E8C7-4FA8-AD3B-0DD04BC3A49F"
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E4470F74-BE5B-49CD-A5C5-1B9EBE8F3E05"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JawboneUP/BLEManager/LxmBLEManager+Tongbu.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "359"
+            endingLineNumber = "359"
+            landmarkName = "-uploadDistance:date:tongxinId:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D44AFAAC-631F-4053-8CBF-75A30E89CA2C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JawboneUP/BLEManager/LxmBLEManager.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1134"
+            endingLineNumber = "1134"
+            landmarkName = "-peripheral:didUpdateValueForCharacteristic:error:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "70478735-DE47-4814-A57C-DD3CED090D1A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JawboneUP/&#x8bbe;&#x7f6e;/Controllers/LxmDeviceInfoVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "182"
+            endingLineNumber = "182"
+            landmarkName = "-setdistance:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "70478735-DE47-4814-A57C-DD3CED090D1A - f6c566982d07a3dc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[LxmDeviceInfoVC setdistance:]"
+                  moduleName = "&#x5b88;&#x62a4;&#x9f2c;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zk/Documents/LXM/%E7%A0%81%E4%BA%91%E6%89%8B%E7%8E%AF/JawboneUP/JawboneUP/%E8%AE%BE%E7%BD%AE/Controllers/LxmDeviceInfoVC.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "182"
+                  endingLineNumber = "182"
+                  offsetFromSymbolStart = "752">
+               </Location>
+               <Location
+                  uuid = "70478735-DE47-4814-A57C-DD3CED090D1A - 2bf1cc2421e1b364"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__31-[LxmDeviceInfoVC setdistance:]_block_invoke"
+                  moduleName = "&#x5b88;&#x62a4;&#x9f2c;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zk/Documents/LXM/%E7%A0%81%E4%BA%91%E6%89%8B%E7%8E%AF/JawboneUP/JawboneUP/%E8%AE%BE%E7%BD%AE/Controllers/LxmDeviceInfoVC.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "184"
+                  endingLineNumber = "184"
+                  offsetFromSymbolStart = "88">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "259DFC33-579C-4CB3-8860-EAFDC7A75BD7"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JawboneUP/&#x8bbe;&#x7f6e;/Controllers/LxmDeviceInfoVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "127"
+            endingLineNumber = "127"
+            landmarkName = "-setDeviceInfowithAlertType:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "259DFC33-579C-4CB3-8860-EAFDC7A75BD7 - 9ded049c97b0aed6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[LxmDeviceInfoVC setDeviceInfowithAlertType:]"
+                  moduleName = "&#x5b88;&#x62a4;&#x9f2c;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zk/Documents/LXM/%E7%A0%81%E4%BA%91%E6%89%8B%E7%8E%AF/JawboneUP/JawboneUP/%E8%AE%BE%E7%BD%AE/Controllers/LxmDeviceInfoVC.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "127"
+                  endingLineNumber = "127"
+                  offsetFromSymbolStart = "836">
+               </Location>
+               <Location
+                  uuid = "259DFC33-579C-4CB3-8860-EAFDC7A75BD7 - 57e29e3fb3a45458"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__46-[LxmDeviceInfoVC setDeviceInfowithAlertType:]_block_invoke"
+                  moduleName = "&#x5b88;&#x62a4;&#x9f2c;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zk/Documents/LXM/%E7%A0%81%E4%BA%91%E6%89%8B%E7%8E%AF/JawboneUP/JawboneUP/%E8%AE%BE%E7%BD%AE/Controllers/LxmDeviceInfoVC.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "128"
+                  endingLineNumber = "128"
+                  offsetFromSymbolStart = "88">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "19783325-84D1-4F94-9B5A-030410720531"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JawboneUP/&#x9996;&#x9875;/Controllers/LxmNewHomeVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "567"
+            endingLineNumber = "567"
+            landmarkName = "-setRealOpenAction:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "19783325-84D1-4F94-9B5A-030410720531 - 20df801110e0a834"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__34-[LxmNewHomeVC setRealOpenAction:]_block_invoke"
+                  moduleName = "&#x5b88;&#x62a4;&#x9f2c;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zk/Documents/LXM/%E7%A0%81%E4%BA%91%E6%89%8B%E7%8E%AF/JawboneUP/JawboneUP/%E9%A6%96%E9%A1%B5/Controllers/LxmNewHomeVC.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "567"
+                  endingLineNumber = "567"
+                  offsetFromSymbolStart = "1016">
+               </Location>
+               <Location
+                  uuid = "19783325-84D1-4F94-9B5A-030410720531 - 75bcbd28f4014da1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__34-[LxmNewHomeVC setRealOpenAction:]_block_invoke_2"
+                  moduleName = "&#x5b88;&#x62a4;&#x9f2c;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zk/Documents/LXM/%E7%A0%81%E4%BA%91%E6%89%8B%E7%8E%AF/JawboneUP/JawboneUP/%E9%A6%96%E9%A1%B5/Controllers/LxmNewHomeVC.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "569"
+                  endingLineNumber = "569"
+                  offsetFromSymbolStart = "16">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E108605A-509B-487A-B485-81E81692FD57"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JawboneUP/&#x9996;&#x9875;/Controllers/LxmNewHomeVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "600"
+            endingLineNumber = "600"
+            landmarkName = "-setRealOpenAction:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "E108605A-509B-487A-B485-81E81692FD57 - 75bcbd28f4414da3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__34-[LxmNewHomeVC setRealOpenAction:]_block_invoke_4"
+                  moduleName = "&#x5b88;&#x62a4;&#x9f2c;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zk/Documents/LXM/%E7%A0%81%E4%BA%91%E6%89%8B%E7%8E%AF/JawboneUP/JawboneUP/%E9%A6%96%E9%A1%B5/Controllers/LxmNewHomeVC.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "600"
+                  endingLineNumber = "600"
+                  offsetFromSymbolStart = "572">
+               </Location>
+               <Location
+                  uuid = "E108605A-509B-487A-B485-81E81692FD57 - 75bcbd28f5814ddd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__34-[LxmNewHomeVC setRealOpenAction:]_block_invoke_6"
+                  moduleName = "&#x5b88;&#x62a4;&#x9f2c;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zk/Documents/LXM/%E7%A0%81%E4%BA%91%E6%89%8B%E7%8E%AF/JawboneUP/JawboneUP/%E9%A6%96%E9%A1%B5/Controllers/LxmNewHomeVC.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "602"
+                  endingLineNumber = "602"
+                  offsetFromSymbolStart = "16">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C3C2065D-AE1D-4BED-9719-45EA8542639C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JawboneUP/BLEManager/LxmBLEManager.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1144"
+            endingLineNumber = "1144"
+            landmarkName = "-peripheral:didUpdateValueForCharacteristic:error:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "40C26E5D-94B5-4E21-86D0-B9E1B72C4012"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JawboneUP/&#x9996;&#x9875;/Controllers/LxmNewHomeVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "247"
+            endingLineNumber = "247"
+            landmarkName = "-viewDidLoad"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "43B9DC15-D1B2-419C-974B-E2A641DDA40E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JawboneUP/&#x9996;&#x9875;/Controllers/LxmNewHomeVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "257"
+            endingLineNumber = "257"
+            landmarkName = "-viewDidLoad"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "43B9DC15-D1B2-419C-974B-E2A641DDA40E - 5dfe066c6010325c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__27-[LxmNewHomeVC viewDidLoad]_block_invoke.243"
+                  moduleName = "&#x5b88;&#x62a4;&#x9f2c;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zk/Documents/LXM/%E7%A0%81%E4%BA%91%E6%89%8B%E7%8E%AF/JawboneUP/JawboneUP/%E9%A6%96%E9%A1%B5/Controllers/LxmNewHomeVC.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "257"
+                  endingLineNumber = "257"
+                  offsetFromSymbolStart = "108">
+               </Location>
+               <Location
+                  uuid = "43B9DC15-D1B2-419C-974B-E2A641DDA40E - ea6b6cec5a8537ca"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__27-[LxmNewHomeVC viewDidLoad]_block_invoke_2.246"
+                  moduleName = "&#x5b88;&#x62a4;&#x9f2c;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zk/Documents/LXM/%E7%A0%81%E4%BA%91%E6%89%8B%E7%8E%AF/JawboneUP/JawboneUP/%E9%A6%96%E9%A1%B5/Controllers/LxmNewHomeVC.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "258"
+                  endingLineNumber = "258"
+                  offsetFromSymbolStart = "24">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D8657597-951D-4DEB-904A-487BCAC43AC1"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JawboneUP/&#x9996;&#x9875;/Controllers/LxmNewHomeVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "286"
+            endingLineNumber = "286"
+            landmarkName = "-viewDidLoad"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "D8657597-951D-4DEB-904A-487BCAC43AC1 - ea6f7cc5a2ab32c6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__27-[LxmNewHomeVC viewDidLoad]_block_invoke_3.258"
+                  moduleName = "&#x5b88;&#x62a4;&#x9f2c;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zk/Documents/LXM/%E7%A0%81%E4%BA%91%E6%89%8B%E7%8E%AF/JawboneUP/JawboneUP/%E9%A6%96%E9%A1%B5/Controllers/LxmNewHomeVC.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "286"
+                  endingLineNumber = "286"
+                  offsetFromSymbolStart = "112">
+               </Location>
+               <Location
+                  uuid = "D8657597-951D-4DEB-904A-487BCAC43AC1 - ea530cda8ed93ec0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__27-[LxmNewHomeVC viewDidLoad]_block_invoke_4.259"
+                  moduleName = "&#x5b88;&#x62a4;&#x9f2c;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zk/Documents/LXM/%E7%A0%81%E4%BA%91%E6%89%8B%E7%8E%AF/JawboneUP/JawboneUP/%E9%A6%96%E9%A1%B5/Controllers/LxmNewHomeVC.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "287"
+                  endingLineNumber = "287"
+                  offsetFromSymbolStart = "24">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "78C9BF36-3A9B-4172-9E05-785C6A947839"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JawboneUP/&#x9996;&#x9875;/Controllers/LxmNewHomeVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "530"
+            endingLineNumber = "530"
+            landmarkName = "-setDistanceAction:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "164627DB-DC0E-4920-B0D9-35CED6106826"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JawboneUP/BLEManager/LxmBLEManager.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1143"
+            endingLineNumber = "1143"
+            landmarkName = "-peripheral:didUpdateValueForCharacteristic:error:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0EA1C8EE-276D-4298-86A8-D36D81DA32D1"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JawboneUP/&#x9996;&#x9875;/Controllers/LxmNewHomeVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "638"
+            endingLineNumber = "638"
+            landmarkName = "-updateDevice:info:completed:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "72FFD26B-8660-445F-921C-F5933B449C84"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JawboneUP/&#x9996;&#x9875;/Controllers/LxmNewHomeVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "526"
+            endingLineNumber = "526"
+            landmarkName = "-setDistanceAction:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5ED510C2-96EB-4CF7-8035-006C7BE84097"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JawboneUP/BLEManager/LxmBLEManager.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "610"
+            endingLineNumber = "610"
+            landmarkName = "-setDistance:distance:completed:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "04E94A72-4E3F-4D65-8639-2E2C74C33C76"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JawboneUP/BLEManager/LxmBLEManager.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "597"
+            endingLineNumber = "597"
+            landmarkName = "-setDistance:distance:completed:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E1AAEBB1-5848-44FE-9DE1-4DF904F92670"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JawboneUP/&#x9996;&#x9875;/Controllers/LxmNewHomeVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "632"
+            endingLineNumber = "632"
+            landmarkName = "-updateDevice:info:completed:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E7C9F807-9101-4F87-BE3A-6537AFA6CD96"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JawboneUP/&#x9996;&#x9875;/Controllers/LxmNewHomeVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "659"
+            endingLineNumber = "659"
+            landmarkName = "-updateDevice1:info:completed:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1B2BD26A-239B-4784-91AD-85E0D782885A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JawboneUP/&#x9996;&#x9875;/Controllers/LxmNewHomeVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "665"
+            endingLineNumber = "665"
+            landmarkName = "-updateDevice1:info:completed:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E91A3938-E0CB-4E54-BC6C-7A3261828E5F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JawboneUP/&#x9996;&#x9875;/Controllers/LxmNewHomeVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "655"
+            endingLineNumber = "655"
+            landmarkName = "-updateDevice1:info:completed:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
