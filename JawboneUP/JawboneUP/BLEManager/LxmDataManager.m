@@ -76,6 +76,10 @@
     NSData * data = [LxmDataManager stringToHexData:str];
     NSData *subData = [LxmDataManager stringToHexData:@"FF"];
     NSMutableData *mdata = [NSMutableData dataWithData:data];
+    NSData * tempData = [LxmDataManager stringToHexData:@"0000"];
+    if (nameData.length == 2) {
+        [mdata appendData:tempData];
+    }
     [mdata appendData:nameData];
     [mdata appendData:subData];
     return mdata;
@@ -89,6 +93,10 @@
     NSData * data = [LxmDataManager stringToHexData:str];
     NSData *subData = [LxmDataManager stringToHexData:@"ff"];
     NSMutableData *mdata = [NSMutableData dataWithData:data];
+    NSData * tempData = [LxmDataManager stringToHexData:@"0000"];
+       if (nameData.length == 2) {
+           [mdata appendData:tempData];
+       }
     [mdata appendData:nameData];
     [mdata appendData:subData];
     return mdata;

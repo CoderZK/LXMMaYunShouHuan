@@ -150,8 +150,12 @@
            }
            
            type = @2;
+           if (_nickNameView.rightTF.text.length == 0) {
+               [SVProgressHUD showErrorWithStatus:@"请输入1~2汉字的设备名称"];
+               return;
+           }
            if (_nickNameView.rightTF.text.length > 2) {
-               [SVProgressHUD showErrorWithStatus:@"请输入2汉字的设备名称"];
+               [SVProgressHUD showErrorWithStatus:@"请输入1~2汉字的设备名称"];
                return;
            }
            if (_phoneView.rightTF.text.length != 11) {

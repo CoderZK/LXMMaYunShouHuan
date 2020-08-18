@@ -27,6 +27,8 @@
 #import "LxmJiaZhangModel.h"
 #import "LxmEventBus.h"
 
+#import <iOSDFULibrary-Swift.h>
+
 #define kDevice_Is_iPhoneX \
 ({BOOL isPhoneX = NO;\
 if (@available(iOS 11.0, *)) {\

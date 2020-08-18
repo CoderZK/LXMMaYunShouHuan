@@ -87,7 +87,7 @@
     _nickNameView = [[LxmTextTFView alloc] initWithFrame:CGRectMake(0, 200.5, ScreenW, 50)];
     _nickNameView.backgroundColor = [UIColor whiteColor];
     _nickNameView.leftLab.text = @"设备昵称";
-    _nickNameView.rightTF.placeholder = @"请输入2汉字的设备名称";
+    _nickNameView.rightTF.placeholder = @"请输入1~2汉字的设备名称";
     [self.tableView addSubview:_nickNameView];
     
     _phoneView = [[LxmTextTFView alloc] initWithFrame:CGRectMake(0, 251, ScreenW, 50)];
@@ -105,7 +105,7 @@
     _distanceView = [[LxmTextTFView alloc] initWithFrame:CGRectMake(0, 301.5, ScreenW, 50)];
     _distanceView.backgroundColor = [UIColor whiteColor];
     _distanceView.leftLab.text = @"安全距离";
-    _distanceView.rightTF.placeholder = @"请输入和主机的安全距离(1-50m)";
+    _distanceView.rightTF.placeholder = @"请输入和主机的安全距离(1-300m)";
     _distanceView.rightTF.font = [UIFont systemFontOfSize:15];
     _distanceView.rightTF.keyboardType = UIKeyboardTypeNumberPad;
     [self.tableView addSubview:_distanceView];
@@ -204,12 +204,17 @@
             return;
         }
         if (_nickNameView.rightTF.text.length <= 0) {
-            [SVProgressHUD showErrorWithStatus:@"请输入设备名称"];
+            [SVProgressHUD showErrorWithStatus:@"请输入1~2汉字的设备名称"];
             return;
         }
         
+//        if (_nickNameView.rightTF.text.length != 2) {
+//            [SVProgressHUD showErrorWithStatus:@"请输入2个字设备名称"];
+//            return;
+//        }
+        
         if (_nickNameView.rightTF.text.length > 2) {
-            [SVProgressHUD showErrorWithStatus:@"请输入2汉字的设备名称"];
+            [SVProgressHUD showErrorWithStatus:@"请输入1~2汉字的设备名称"];
             return;
         }
         if (_phoneView.rightTF.text.length != 11) {

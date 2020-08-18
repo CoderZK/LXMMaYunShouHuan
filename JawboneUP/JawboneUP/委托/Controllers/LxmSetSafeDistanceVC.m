@@ -47,7 +47,7 @@
     
     
     _tf = [[UITextField alloc] initWithFrame:CGRectMake(95, 50.5, ScreenW-110, 49.5)];
-    _tf.placeholder = @"请输入和主机的安全距离(1-50m)";
+    _tf.placeholder = @"请输入和主机的安全距离(1-300m)";
     _tf.font = [UIFont systemFontOfSize:15];
     _tf.textColor = CharacterDarkColor;
     [headeView addSubview:_tf];

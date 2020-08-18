@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		36F5804FA52068DFF7DA5B15 /* Pods_JawboneUP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A1AAF38F86374DB9BF64AF /* Pods_JawboneUP.framework */; };
 		4001A78F1FB53378008570F4 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4001A78E1FB53378008570F4 /* libz.tbd */; };
 		4001A7911FB53A15008570F4 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4001A7901FB53A15008570F4 /* UserNotifications.framework */; };
 		4003FA421FB297E2008DC1F3 /* LxmRoleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4003FA411FB297E2008DC1F3 /* LxmRoleModel.m */; };
@@ -130,6 +131,12 @@
 		40EE77CB1F983E5E007FC537 /* LxmSetSubInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 40EE77CA1F983E5E007FC537 /* LxmSetSubInfoVC.m */; };
 		40FB53331FB923D100CE22AF /* LxmMyLocationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40FB53321FB923D100CE22AF /* LxmMyLocationView.m */; };
 		40FDA0F51FB55A5D00C92E19 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40FDA0F41FB55A5D00C92E19 /* LaunchScreen.storyboard */; };
+		588462E124D29FB3007343D9 /* UIViewController+ChangeUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 588462E024D29FB3007343D9 /* UIViewController+ChangeUI.m */; };
+		5887FE0424EBA39900D7CD8F /* YYYY.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5887FE0324EBA39900D7CD8F /* YYYY.swift */; };
+		5887FE0A24EBC81300D7CD8F /* 5.0 son.zip in Resources */ = {isa = PBXBuildFile; fileRef = 5887FE0624EBC81200D7CD8F /* 5.0 son.zip */; };
+		5887FE0B24EBC81300D7CD8F /* 5.0 mom.zip in Resources */ = {isa = PBXBuildFile; fileRef = 5887FE0724EBC81300D7CD8F /* 5.0 mom.zip */; };
+		5887FE0C24EBC81300D7CD8F /* 6.0 son.zip in Resources */ = {isa = PBXBuildFile; fileRef = 5887FE0824EBC81300D7CD8F /* 6.0 son.zip */; };
+		5887FE0D24EBC81300D7CD8F /* 6.0 mom.zip in Resources */ = {isa = PBXBuildFile; fileRef = 5887FE0924EBC81300D7CD8F /* 6.0 mom.zip */; };
 		5F034E78233BBA6E0003E348 /* LxmEventBus.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F034E77233BBA6E0003E348 /* LxmEventBus.m */; };
 		5F239CE81FA4115800D36DFD /* LxmBLEManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F239CE71FA4115800D36DFD /* LxmBLEManager.m */; };
 		5F28CBD71FADA26B00CE3507 /* LxmConnectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F28CBD61FADA26B00CE3507 /* LxmConnectModel.m */; };
@@ -138,11 +145,11 @@
 		5F74B89D1FE266170048E4EC /* LxmLocalDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F74B89C1FE266170048E4EC /* LxmLocalDataManager.m */; };
 		5FE1E17D1FC07B5200925120 /* CBPeripheral+MAC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FE1E17C1FC07B5200925120 /* CBPeripheral+MAC.m */; };
 		5FF623B21FA0C05C00C8B07B /* LxmDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FF623B11FA0C05C00C8B07B /* LxmDataManager.m */; };
-		937D06C1BB412AF02A174C28 /* libPods-JawboneUP.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AB95D14B8A655229E4A9F453 /* libPods-JawboneUP.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		013CAE4A08AFE0FB99A916EE /* Pods-JawboneUP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JawboneUP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JawboneUP/Pods-JawboneUP.debug.xcconfig"; sourceTree = "<group>"; };
+		15A1AAF38F86374DB9BF64AF /* Pods_JawboneUP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JawboneUP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4001A78E1FB53378008570F4 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		4001A7901FB53A15008570F4 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		4001A7921FB5412B008570F4 /* JawboneUP.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JawboneUP.entitlements; sourceTree = "<group>"; };
@@ -384,6 +391,14 @@
 		40FB53321FB923D100CE22AF /* LxmMyLocationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LxmMyLocationView.m; sourceTree = "<group>"; };
 		40FDA0F41FB55A5D00C92E19 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		584FA8BC246A952F005FFD83 /* 守护鼬.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "守护鼬.entitlements"; sourceTree = "<group>"; };
+		588462DF24D29FB3007343D9 /* UIViewController+ChangeUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ChangeUI.h"; sourceTree = "<group>"; };
+		588462E024D29FB3007343D9 /* UIViewController+ChangeUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ChangeUI.m"; sourceTree = "<group>"; };
+		5887FE0224EBA39800D7CD8F /* JawboneUP-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JawboneUP-Bridging-Header.h"; sourceTree = "<group>"; };
+		5887FE0324EBA39900D7CD8F /* YYYY.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YYYY.swift; sourceTree = "<group>"; };
+		5887FE0624EBC81200D7CD8F /* 5.0 son.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "5.0 son.zip"; sourceTree = "<group>"; };
+		5887FE0724EBC81300D7CD8F /* 5.0 mom.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "5.0 mom.zip"; sourceTree = "<group>"; };
+		5887FE0824EBC81300D7CD8F /* 6.0 son.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "6.0 son.zip"; sourceTree = "<group>"; };
+		5887FE0924EBC81300D7CD8F /* 6.0 mom.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "6.0 mom.zip"; sourceTree = "<group>"; };
 		5F034E76233BBA6E0003E348 /* LxmEventBus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LxmEventBus.h; sourceTree = "<group>"; };
 		5F034E77233BBA6E0003E348 /* LxmEventBus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LxmEventBus.m; sourceTree = "<group>"; };
 		5F239CE61FA4115800D36DFD /* LxmBLEManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LxmBLEManager.h; sourceTree = "<group>"; };
@@ -399,7 +414,6 @@
 		5FE1E17C1FC07B5200925120 /* CBPeripheral+MAC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CBPeripheral+MAC.m"; sourceTree = "<group>"; };
 		5FF623B01FA0C05B00C8B07B /* LxmDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LxmDataManager.h; sourceTree = "<group>"; };
 		5FF623B11FA0C05C00C8B07B /* LxmDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LxmDataManager.m; sourceTree = "<group>"; };
-		AB95D14B8A655229E4A9F453 /* libPods-JawboneUP.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JawboneUP.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D620657A88DF16492E495C5D /* Pods-JawboneUP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JawboneUP.release.xcconfig"; path = "Pods/Target Support Files/Pods-JawboneUP/Pods-JawboneUP.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -412,7 +426,7 @@
 				4001A7911FB53A15008570F4 /* UserNotifications.framework in Frameworks */,
 				4001A78F1FB53378008570F4 /* libz.tbd in Frameworks */,
 				40218D3B1FA05211005C7D04 /* CoreBluetooth.framework in Frameworks */,
-				937D06C1BB412AF02A174C28 /* libPods-JawboneUP.a in Frameworks */,
+				36F5804FA52068DFF7DA5B15 /* Pods_JawboneUP.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,7 +439,7 @@
 				4001A7901FB53A15008570F4 /* UserNotifications.framework */,
 				4001A78E1FB53378008570F4 /* libz.tbd */,
 				40218D3A1FA05211005C7D04 /* CoreBluetooth.framework */,
-				AB95D14B8A655229E4A9F453 /* libPods-JawboneUP.a */,
+				15A1AAF38F86374DB9BF64AF /* Pods_JawboneUP.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -583,6 +597,7 @@
 		400BCD801F8EF2EC00CF32AB /* JawboneUP */ = {
 			isa = PBXGroup;
 			children = (
+				5887FE0524EBC80600D7CD8F /* 固件包 */,
 				584FA8BC246A952F005FFD83 /* 守护鼬.entitlements */,
 				5F66A4F6237A4F65001FDE39 /* warning.mp3 */,
 				400694911FDF70B700452000 /* UMessage_Sdk_1.5.0a */,
@@ -594,6 +609,7 @@
 				400BCD9A1F8EF38A00CF32AB /* 设置 */,
 				400BCD811F8EF2EC00CF32AB /* AppDelegate.h */,
 				400BCD821F8EF2EC00CF32AB /* AppDelegate.m */,
+				5887FE0324EBA39900D7CD8F /* YYYY.swift */,
 				404D2A882346274C0023D30F /* 委托 */,
 				400BCD841F8EF2EC00CF32AB /* ViewController.h */,
 				400BCD851F8EF2EC00CF32AB /* ViewController.m */,
@@ -606,6 +622,7 @@
 				400BCDCD1F8F3D7D00CF32AB /* Header.pch */,
 				40FDA0F41FB55A5D00C92E19 /* LaunchScreen.storyboard */,
 				400BCDAD1F8EF7FF00CF32AB /* LxmTool */,
+				5887FE0224EBA39800D7CD8F /* JawboneUP-Bridging-Header.h */,
 			);
 			path = JawboneUP;
 			sourceTree = "<group>";
@@ -828,6 +845,8 @@
 		400BCDAE1F8EF7FF00CF32AB /* BaseVC */ = {
 			isa = PBXGroup;
 			children = (
+				588462DF24D29FB3007343D9 /* UIViewController+ChangeUI.h */,
+				588462E024D29FB3007343D9 /* UIViewController+ChangeUI.m */,
 				400BCDBA1F8EFF6F00CF32AB /* LxmTool.h */,
 				400BCDB91F8EFF6F00CF32AB /* LxmTool.m */,
 				4044DACC1FB17AE400B03D45 /* LxmURLDefine.h */,
@@ -945,6 +964,17 @@
 			path = Calendar;
 			sourceTree = "<group>";
 		};
+		5887FE0524EBC80600D7CD8F /* 固件包 */ = {
+			isa = PBXGroup;
+			children = (
+				5887FE0724EBC81300D7CD8F /* 5.0 mom.zip */,
+				5887FE0624EBC81200D7CD8F /* 5.0 son.zip */,
+				5887FE0924EBC81300D7CD8F /* 6.0 mom.zip */,
+				5887FE0824EBC81300D7CD8F /* 6.0 son.zip */,
+			);
+			path = "固件包";
+			sourceTree = "<group>";
+		};
 		5F239CE51FA4112000D36DFD /* BLEManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -983,7 +1013,7 @@
 				400BCD7A1F8EF2EC00CF32AB /* Sources */,
 				400BCD7B1F8EF2EC00CF32AB /* Frameworks */,
 				400BCD7C1F8EF2EC00CF32AB /* Resources */,
-				B21868B9E9A7FBB3905E40C7 /* [CP] Copy Pods Resources */,
+				C13BC3CF57F775CECEBE59CC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1005,6 +1035,7 @@
 				TargetAttributes = {
 					400BCD7D1F8EF2EC00CF32AB = {
 						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 1150;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -1041,12 +1072,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				400989F31FC3BB0700B8017C /* gifTest.gif in Resources */,
+				5887FE0C24EBC81300D7CD8F /* 6.0 son.zip in Resources */,
 				403541451F96E54B0044081D /* LxmTeacherInfoView.xib in Resources */,
 				40FDA0F51FB55A5D00C92E19 /* LaunchScreen.storyboard in Resources */,
 				404E86E62329F79600D8B739 /* XMCalendarView.xib in Resources */,
+				5887FE0D24EBC81300D7CD8F /* 6.0 mom.zip in Resources */,
+				5887FE0B24EBC81300D7CD8F /* 5.0 mom.zip in Resources */,
 				400BCD8E1F8EF2EC00CF32AB /* Assets.xcassets in Resources */,
 				404E86E42329F79600D8B739 /* XMCalendarCell.xib in Resources */,
 				40EE77C81F98314B007FC537 /* LxmAddInfoView.xib in Resources */,
+				5887FE0A24EBC81300D7CD8F /* 5.0 son.zip in Resources */,
 				5F66A4F7237A4F65001FDE39 /* warning.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1072,28 +1107,42 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B21868B9E9A7FBB3905E40C7 /* [CP] Copy Pods Resources */ = {
+		C13BC3CF57F775CECEBE59CC /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-JawboneUP/Pods-JawboneUP-resources.sh",
-				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
-				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
-				"${PODS_ROOT}/PGDatePicker/PGDatePicker/PGDatePicker.bundle",
-				"${PODS_ROOT}/SVProgressHUD-0.8.1/SVProgressHUD/SVProgressHUD.bundle",
+				"${PODS_ROOT}/Target Support Files/Pods-JawboneUP/Pods-JawboneUP-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
+				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/MJExtension/MJExtension.framework",
+				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
+				"${BUILT_PRODUCTS_DIR}/PGDatePicker/PGDatePicker.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD-0.8.1/SVProgressHUD_0_8_1.framework",
+				"${BUILT_PRODUCTS_DIR}/Zip/Zip.framework",
+				"${BUILT_PRODUCTS_DIR}/iOSDFULibrary/iOSDFULibrary.framework",
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IQKeyboardManager.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/PGDatePicker.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJExtension.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PGDatePicker.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD_0_8_1.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Zip.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/iOSDFULibrary.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JawboneUP/Pods-JawboneUP-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JawboneUP/Pods-JawboneUP-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1161,7 +1210,9 @@
 				40EC3DF21F9049210093E670 /* LxmImgTFView.m in Sources */,
 				40C839D523910F31000DC23A /* UIControl+AfterTimeAble.m in Sources */,
 				404ACDE52328E0D4003954CD /* LxmDataVC.m in Sources */,
+				588462E124D29FB3007343D9 /* UIViewController+ChangeUI.m in Sources */,
 				5F239CE81FA4115800D36DFD /* LxmBLEManager.m in Sources */,
+				5887FE0424EBA39900D7CD8F /* YYYY.swift in Sources */,
 				400BCD831F8EF2EC00CF32AB /* AppDelegate.m in Sources */,
 				40CB9C5C23375FB700AE70E9 /* UIViewController+TopVC.m in Sources */,
 				5FE1E17D1FC07B5200925120 /* CBPeripheral+MAC.m in Sources */,
@@ -1337,11 +1388,12 @@
 			baseConfigurationReference = 013CAE4A08AFE0FB99A916EE /* Pods-JawboneUP.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "JawboneUP/守护鼬.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 4744VSH78G;
+				DEVELOPMENT_TEAM = GP8MR3ZN9E;
 				GCC_PREFIX_HEADER = JawboneUP/Header.pch;
 				INFOPLIST_FILE = JawboneUP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1354,7 +1406,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.heartcolour.JawboneUP;
 				PRODUCT_NAME = "守护鼬";
 				PROVISIONING_PROFILE = "3f2c81fa-ba6f-495e-89b1-184d107690dd";
-				PROVISIONING_PROFILE_SPECIFIER = com.XXX;
+				PROVISIONING_PROFILE_SPECIFIER = anxinquan_dev_profile;
+				SWIFT_OBJC_BRIDGING_HEADER = "JawboneUP/JawboneUP-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/**";
 			};
@@ -1365,6 +1420,7 @@
 			baseConfigurationReference = D620657A88DF16492E495C5D /* Pods-JawboneUP.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "JawboneUP/守护鼬.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
@@ -1383,6 +1439,8 @@
 				PRODUCT_NAME = "守护鼬";
 				PROVISIONING_PROFILE = "3f2c81fa-ba6f-495e-89b1-184d107690dd";
 				PROVISIONING_PROFILE_SPECIFIER = heartcolor_dis_profile;
+				SWIFT_OBJC_BRIDGING_HEADER = "JawboneUP/JawboneUP-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/**";
 			};

@@ -77,7 +77,7 @@
 
 // returns the # of rows in each component..
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return 51;
+    return 301;
 }
 
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
@@ -119,9 +119,9 @@
 }
 
 - (void)showWithNumber:(NSInteger)num setBlock:(void (^)(NSInteger))block {
-    if (num > 50) {
-        num = 50;
-    }
+//    if (num > 50) {
+//        num = 50;
+//    }
     _setBlock = block;
     [self.pickerView selectRow:num inComponent:0 animated:NO];
     UIWindow * window = [UIApplication sharedApplication].delegate.window;

@@ -21,7 +21,7 @@
 #import "LxmLoginVC.h"
 
 
-@interface LxmDeviceInfoVC ()<LxmStyleSelectView>
+@interface LxmDeviceInfoVC ()<LxmStyleSelectView,DFUServiceDelegate,DFUProgressDelegate,LoggerDelegate>
 {
     UILabel * _juliLab;
     UILabel * _styleLab;
@@ -199,9 +199,9 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if ([self.role isEqualToString:@"主机"]){
-        return 2;
+        return 2 + 1;
     }else{
-        return 3;
+        return 3 +1;
     }
 }
 
@@ -217,13 +217,15 @@
         if (indexPath.row == 0) {
            cell.imageView.image = [UIImage imageNamed:@"shebei_1"];
            cell.textLabel.text = @"修改资料";
-        } else {
+        } else if (indexPath.row == 1){
            cell.imageView.image = [UIImage imageNamed:@"shebei_2"];
            cell.textLabel.text = @"解除绑定";
+        }else if (indexPath.row ==2) {
+            cell.textLabel.text = @"升级";
         }
         return cell;
     } else {
-        if (indexPath.row == 0||indexPath.row == 1) {
+        if (indexPath.row == 0||indexPath.row == 1 || indexPath.row == 3) {
             UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
             if (!cell) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
@@ -234,9 +236,11 @@
             if (indexPath.row == 0) {
                 cell.imageView.image = [UIImage imageNamed:@"shebei_1"];
                 cell.textLabel.text = @"修改资料";
-            } else {
+            } else if (indexPath.row == 1){
                 cell.imageView.image = [UIImage imageNamed:@"shebei_2"];
                 cell.textLabel.text = @"解除绑定";
+            }else if (indexPath.row == 3) {
+                cell.textLabel.text = @"升级";
             }
             return cell;
         } else {
@@ -317,6 +321,8 @@
             [controller1 addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
             [self presentViewController:controller1 animated:YES completion:nil];
             
+        }else if (indexPath.row == 2){
+            //升级操作
         }
     } else {
         if (indexPath.row == 0) {
@@ -379,7 +385,7 @@
             [controller1 addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
             [self presentViewController:controller1 animated:YES completion:nil];
             
-        } else {
+        } else if (indexPath.row == 2){
             //安全距离设置
             UIAlertController *controller1 = [UIAlertController alertControllerWithTitle:nil message:@"设置安全距离" preferredStyle:UIAlertControllerStyleAlert];
             [controller1 addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
@@ -412,8 +418,57 @@
             }]];
             [controller1 addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
             [self presentViewController:controller1 animated:YES completion:nil];
+        }else if (indexPath.row == 3) {
+            
+            //升级操作
+            
+        NSString * path  = [[NSBundle mainBundle] pathForResource:@"6.0 son" ofType:@".zip"];
+        DFUFirmware *selectedFirmware = [[DFUFirmware alloc] initWithZipFile:[NSData dataWithContentsOfFile:path]];
+        DFUServiceInitiator * dfuInitiator = [[DFUServiceInitiator alloc]initWithQueue: dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
+        [dfuInitiator withFirmware:selectedFirmware];
+        dfuInitiator.delegate = self;
+        dfuInitiator.progressDelegate = self;
+        dfuInitiator.logger = self;
+        dfuInitiator.enableUnsafeExperimentalButtonlessServiceInSecureDfu = YES;
+            
+         CBPeripheral * periPheral = [LxmBLEManager.shareManager peripheralWithTongXinId:self.tongxunID];
+//
+          DFUServiceInitiator * dfuController = [[dfuInitiator withFirmware:selectedFirmware] startWithTarget:periPheral];
+            
         }
     }
+}
+
+- (void)dfuProgressDidChangeFor:(NSInteger)part outOf:(NSInteger)totalParts to:(NSInteger)progress currentSpeedBytesPerSecond:(double)currentSpeedBytesPerSecond avgSpeedBytesPerSecond:(double)avgSpeedBytesPerSecond {
+    NSLog(@"\n\n\n %d",progress);
+
+    NSLog(@"%@",@"123");
+    
+}
+
+- (void)dfuError:(enum DFUError)error didOccurWithMessage:(NSString *)message {
+    NSLog(@"\n\nmessage ===== %@",message);
+
+    NSLog(@"%@",@"");
+
+    
+}
+
+- (void)logWith:(enum LogLevel)level message:(NSString *)message {
+    
+    NSLog(@"\n\nmessage =yyyyy==== %@",message);
+
+    NSLog(@"%@",@"");
+    
+}
+
+- (void)dfuStateDidChangeTo:(enum DFUState)state {
+    
+    NSLog(@"%d",state);
+    
+    
+    NSLog(@"%@",@"123");
+    
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
