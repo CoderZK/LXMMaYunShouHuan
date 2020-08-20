@@ -133,6 +133,7 @@
 		40FDA0F51FB55A5D00C92E19 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40FDA0F41FB55A5D00C92E19 /* LaunchScreen.storyboard */; };
 		587D1C9D24ECD0D800CC49C0 /* LxmShengJiSheBeiVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 587D1C9C24ECD0D800CC49C0 /* LxmShengJiSheBeiVC.m */; };
 		587D1CA024ECF2C700CC49C0 /* LxmShengJiProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 587D1C9F24ECF2C700CC49C0 /* LxmShengJiProgressView.m */; };
+		587F738C24EE43500030B620 /* 8.0mom.zip in Resources */ = {isa = PBXBuildFile; fileRef = 587F738B24EE43500030B620 /* 8.0mom.zip */; };
 		588462E124D29FB3007343D9 /* UIViewController+ChangeUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 588462E024D29FB3007343D9 /* UIViewController+ChangeUI.m */; };
 		5887FE0424EBA39900D7CD8F /* YYYY.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5887FE0324EBA39900D7CD8F /* YYYY.swift */; };
 		5887FE0A24EBC81300D7CD8F /* 5.0 son.zip in Resources */ = {isa = PBXBuildFile; fileRef = 5887FE0624EBC81200D7CD8F /* 5.0 son.zip */; };
@@ -397,6 +398,7 @@
 		587D1C9C24ECD0D800CC49C0 /* LxmShengJiSheBeiVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LxmShengJiSheBeiVC.m; sourceTree = "<group>"; };
 		587D1C9E24ECF2C600CC49C0 /* LxmShengJiProgressView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LxmShengJiProgressView.h; sourceTree = "<group>"; };
 		587D1C9F24ECF2C700CC49C0 /* LxmShengJiProgressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LxmShengJiProgressView.m; sourceTree = "<group>"; };
+		587F738B24EE43500030B620 /* 8.0mom.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = 8.0mom.zip; sourceTree = "<group>"; };
 		588462DF24D29FB3007343D9 /* UIViewController+ChangeUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ChangeUI.h"; sourceTree = "<group>"; };
 		588462E024D29FB3007343D9 /* UIViewController+ChangeUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ChangeUI.m"; sourceTree = "<group>"; };
 		5887FE0224EBA39800D7CD8F /* JawboneUP-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JawboneUP-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -603,6 +605,7 @@
 		400BCD801F8EF2EC00CF32AB /* JawboneUP */ = {
 			isa = PBXGroup;
 			children = (
+				587F738B24EE43500030B620 /* 8.0mom.zip */,
 				5887FE0524EBC80600D7CD8F /* 固件包 */,
 				584FA8BC246A952F005FFD83 /* 守护鼬.entitlements */,
 				5F66A4F6237A4F65001FDE39 /* warning.mp3 */,
@@ -1087,6 +1090,7 @@
 				40FDA0F51FB55A5D00C92E19 /* LaunchScreen.storyboard in Resources */,
 				404E86E62329F79600D8B739 /* XMCalendarView.xib in Resources */,
 				5887FE0D24EBC81300D7CD8F /* 6.0 mom.zip in Resources */,
+				587F738C24EE43500030B620 /* 8.0mom.zip in Resources */,
 				5887FE0B24EBC81300D7CD8F /* 5.0 mom.zip in Resources */,
 				400BCD8E1F8EF2EC00CF32AB /* Assets.xcassets in Resources */,
 				404E86E42329F79600D8B739 /* XMCalendarCell.xib in Resources */,

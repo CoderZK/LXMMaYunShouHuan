@@ -840,6 +840,14 @@
                         peripheral.randomKey = random;
                   
                 }
+                if (LxmTool.ShareTool.isLogin) {
+                       if (![_devices containsObject:peripheral]) {
+                           [_devices addObject:peripheral];
+                           self.deviceList = _devices;
+                           [LxmEventBus sendEvent:@"deviceListChanged" data:nil];
+                       }
+                       [self connectServerDeviceIfNeed];
+                   }
                 
             }
             
@@ -847,14 +855,14 @@
         
         
     }
-    if (LxmTool.ShareTool.isLogin) {
-        if (![_devices containsObject:peripheral]) {
-            [_devices addObject:peripheral];
-            self.deviceList = _devices;
-            [LxmEventBus sendEvent:@"deviceListChanged" data:nil];
-        }
-        [self connectServerDeviceIfNeed];
-    }
+//    if (LxmTool.ShareTool.isLogin) {
+//        if (![_devices containsObject:peripheral]) {
+//            [_devices addObject:peripheral];
+//            self.deviceList = _devices;
+//            [LxmEventBus sendEvent:@"deviceListChanged" data:nil];
+//        }
+//        [self connectServerDeviceIfNeed];
+//    }
 }
 
 //连接成功

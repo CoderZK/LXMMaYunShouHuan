@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)show;
 - (void)dismiss;
 @property(nonatomic,assign)NSInteger prog;
-
+@property(nonatomic,strong)UILabel *LB;
 @end
 
 NS_ASSUME_NONNULL_END

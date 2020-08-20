@@ -386,7 +386,7 @@
                 NSString * fv  = p.fVersion;
                 NSString * hv  = p.hVersion;
                 
-                if ([dict[@"new_firmware_version"] intValue] != fv.intValue) {
+                if ([dict[@"new_firmware_version"] intValue] != fv.intValue && fv.intValue != 0) {
                     deviceModel.isCanUp = YES;
                 }else {
                     deviceModel.isCanUp = NO;

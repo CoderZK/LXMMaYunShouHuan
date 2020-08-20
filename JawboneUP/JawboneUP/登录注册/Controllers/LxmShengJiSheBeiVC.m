@@ -16,6 +16,7 @@
 @property(nonatomic,strong)NSData *data;
 @property(nonatomic,strong)LxmShengJiProgressView *progressV;
 @property(nonatomic,assign)BOOL isCanback;
+@property (nonatomic, strong) DFUServiceController *dfuServiceController;
 @end
 
 @implementation LxmShengJiSheBeiVC
@@ -25,6 +26,17 @@
     }
     return _progressV;
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[LxmBLEManager shareManager] stopScan ];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[LxmBLEManager shareManager] startScan];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -56,6 +68,11 @@
     [self.shengJiBt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.view addSubview:self.shengJiBt];
     self.shengJiBt.hidden = YES;
+    
+    
+    [[LxmBLEManager shareManager] connectPeripheral:self.peripheral];;
+    
+    
     
     
 }
@@ -160,16 +177,19 @@
 - (void)shengJiAction {
     [SVProgressHUD show];
     self.isCanback = NO;
-    //    NSString * path  = [[NSBundle mainBundle] pathForResource:@"6.0 son" ofType:@".zip"];
-    DFUFirmware *selectedFirmware = [[DFUFirmware alloc] initWithZipFile:self.data];
+//        NSString * path  = [[NSBundle mainBundle] pathForResource:@"8.0mom" ofType:@".zip"];
+    NSError * error;
+    DFUFirmware *selectedFirmware = [[DFUFirmware alloc] initWithZipFile:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.fileStr] options:(NSDataReadingMappedAlways) error:&error] type:(DFUFirmwareTypeApplication)];
+//    DFUFirmware *selectedFirmware = [[DFUFirmware alloc] initWithZipFile:self.data];
     DFUServiceInitiator * dfuInitiator = [[DFUServiceInitiator alloc]initWithQueue: dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
-    [dfuInitiator withFirmware:selectedFirmware];
+    dfuInitiator = [dfuInitiator withFirmware:selectedFirmware];
     dfuInitiator.delegate = self;
     dfuInitiator.progressDelegate = self;
     dfuInitiator.logger = self;
+    dfuInitiator.alternativeAdvertisingNameEnabled = NO;
     dfuInitiator.enableUnsafeExperimentalButtonlessServiceInSecureDfu = YES;
-    DFUServiceInitiator * dfuController = [[dfuInitiator withFirmware:selectedFirmware] startWithTarget:self.peripheral];
-    
+    self.dfuServiceController = [[dfuInitiator withFirmware:selectedFirmware] startWithTarget:self.peripheral];
+     [self.progressV show];
 }
 
 
@@ -178,7 +198,7 @@
 - (void)dfuProgressDidChangeFor:(NSInteger)part outOf:(NSInteger)totalParts to:(NSInteger)progress currentSpeedBytesPerSecond:(double)currentSpeedBytesPerSecond avgSpeedBytesPerSecond:(double)avgSpeedBytesPerSecond {
     NSLog(@"\n\n\n %d",progress);
     [SVProgressHUD dismiss];
-    [self.progressV show];
+   
     self.progressV.prog = progress;
     
     NSLog(@"%@",@"123");
@@ -188,12 +208,19 @@
 - (void)dfuError:(enum DFUError)error didOccurWithMessage:(NSString *)message {
     NSLog(@"\n\nmessage ===== %@",message);
     
+    [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"error=%ld--%@",(long)error,message]];
+    
+    [self.progressV dismiss];
+    
     NSLog(@"%@",@"");
     
     
 }
 
 - (void)logWith:(enum LogLevel)level message:(NSString *)message {
+//    [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"log =%ld--%@",(long)level,message]];
+//
+//    [self.progressV dismiss];
     
     NSLog(@"\n\nmessage =yyyyy==== %@",message);
     
@@ -205,6 +232,22 @@
     
     NSLog(@"%d",state);
     
+    
+//    case connecting
+//    case starting
+//    case enablingDfuMode
+//    case uploading
+//    case validating
+//    case disconnecting
+//    case completed
+//    case aborted
+    
+    
+    if (state == DFUStateConnecting) {
+        self.progressV.LB.text = @"链接中...";
+    }else if (state == DFUStateStarting) {
+        self.progressV.LB.text = @"开始升级";
+    }
     if (state == DFUStateAborted ) {
         [SVProgressHUD showErrorWithStatus:@"升级失败,请重试"];
         self.shengJiBt.enabled = NO;

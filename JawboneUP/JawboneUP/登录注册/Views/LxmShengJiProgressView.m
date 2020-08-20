@@ -10,7 +10,7 @@
 
 @interface LxmShengJiProgressView()
 @property(nonatomic,strong)UIView *V1,*V2;
-@property(nonatomic,strong)UILabel *LB;
+
 
 @end
 
