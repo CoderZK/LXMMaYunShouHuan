@@ -13,6 +13,10 @@
 @end
 @implementation LxmDeviceModel
 
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{@"n_firmware_version":@"new_firmware_version"};
+}
+
 @end
 @implementation LxmEquModel
 

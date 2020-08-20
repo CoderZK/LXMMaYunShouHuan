@@ -16,7 +16,7 @@
 #import "AppDelegate.h"
 #import "CBPeripheral+MAC.h"
 #import "LxmEventBus.h"
-
+#import "LxmShengJiSheBeiVC.h"
 #import "BaseNavigationController.h"
 #import "LxmLoginVC.h"
 
@@ -83,7 +83,7 @@
                 default:
                     break;
             }
-             _styleLab.text =str;
+            _styleLab.text =str;
             [self.tableView reloadData];
         } else {
             [UIAlertController showAlertWithKey:[responseObject objectForKey:@"key"] message:[responseObject objectForKey:@"message"] atVC:self];
@@ -127,7 +127,7 @@
     [LxmNetworking networkingPOST:[LxmURLDefine getModifyDeviceURL] parameters:dict success:^(NSURLSessionDataTask *task, id responseObject) {
         [SVProgressHUD dismiss];
         if ([[responseObject objectForKey:@"key"] intValue] == 1) {
-             [[NSNotificationCenter defaultCenter] postNotificationName:@"bindingListChanged" object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"bindingListChanged" object:nil];
             [SVProgressHUD showSuccessWithStatus:@"报警方式设置成功"];
             NSString * str = @"";
             switch (type) {
@@ -185,7 +185,7 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:@"bindingListChanged" object:nil];
             [SVProgressHUD showSuccessWithStatus:@"距离设置成功"];
             _juliLab.text = [NSString stringWithFormat:@"%@m",disatace];
-     
+            
         }else{
             
             [UIAlertController showAlertWithKey:[responseObject objectForKey:@"key"] message:[responseObject objectForKey:@"message"] atVC:self];
@@ -209,18 +209,19 @@
     if ([self.role isEqualToString:@"主机"]){
         UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
         if (!cell) {
-           cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
-           UIImageView * AImgView = [[UIImageView alloc] initWithFrame:CGRectMake(ScreenW-15-20, 13, 24, 24)];
-           AImgView.image = [UIImage imageNamed:@"ico_9"];
-           [cell addSubview:AImgView];
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
+            UIImageView * AImgView = [[UIImageView alloc] initWithFrame:CGRectMake(ScreenW-15-20, 13, 24, 24)];
+            AImgView.image = [UIImage imageNamed:@"ico_9"];
+            [cell addSubview:AImgView];
         }
         if (indexPath.row == 0) {
-           cell.imageView.image = [UIImage imageNamed:@"shebei_1"];
-           cell.textLabel.text = @"修改资料";
+            cell.imageView.image = [UIImage imageNamed:@"shebei_1"];
+            cell.textLabel.text = @"修改资料";
         } else if (indexPath.row == 1){
-           cell.imageView.image = [UIImage imageNamed:@"shebei_2"];
-           cell.textLabel.text = @"解除绑定";
+            cell.imageView.image = [UIImage imageNamed:@"shebei_2"];
+            cell.textLabel.text = @"解除绑定";
         }else if (indexPath.row ==2) {
+            cell.imageView.image = [UIImage imageNamed:@"shebei_2"];
             cell.textLabel.text = @"升级";
         }
         return cell;
@@ -240,6 +241,7 @@
                 cell.imageView.image = [UIImage imageNamed:@"shebei_2"];
                 cell.textLabel.text = @"解除绑定";
             }else if (indexPath.row == 3) {
+                cell.imageView.image = [UIImage imageNamed:@"shebei_2"];
                 cell.textLabel.text = @"升级";
             }
             return cell;
@@ -248,9 +250,9 @@
             if (!cell)
             {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
-          
+                
                 UILabel * titleLab = [[UILabel alloc] initWithFrame:CGRectMake(115, 15, ScreenW-115-15-20, 20)];
-               
+                
                 _juliLab = titleLab;
                 titleLab.font = [UIFont systemFontOfSize:16];
                 titleLab.textAlignment = NSTextAlignmentRight;
@@ -323,6 +325,42 @@
             
         }else if (indexPath.row == 2){
             //升级操作
+            self.tableView.userInteractionEnabled= NO;
+            CBPeripheral * periPheral = [LxmBLEManager.shareManager peripheralWithTongXinId:self.tongxunID];
+            
+            [[LxmBLEManager shareManager] nowCheckPowerForPer:periPheral];
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                NSLog(@"%@",@"123456");
+                
+                if (periPheral.power.intValue < 25 && periPheral.power.intValue != 0) {
+                    [SVProgressHUD showErrorWithStatus:@"升级必须电量大于25%"];
+                    self.tableView.userInteractionEnabled= YES;
+                    return;
+                }else {
+                    
+                    [[LxmBLEManager shareManager] checkVersion:periPheral  completed:^(BOOL success, NSString *hVersion, NSString *fVersion) {
+                        self.tableView.userInteractionEnabled= YES;
+                        LxmShengJiSheBeiVC * vc =[[LxmShengJiSheBeiVC alloc] init];
+                        vc.hidesBottomBarWhenPushed = YES;
+                        vc.type = @"1";
+                        vc.noStr = hVersion;
+                        vc.firmwareNo = fVersion;
+                        vc.peripheral = periPheral;
+                        vc.isZhengChang = YES;
+                        [self.navigationController pushViewController:vc animated:YES];
+                        self.tableView.userInteractionEnabled= YES;
+                        
+                        
+                    }];
+                }
+                
+                
+            });
+            
+            
+            
+            
         }
     } else {
         if (indexPath.row == 0) {
@@ -354,33 +392,33 @@
                 
                 [SVProgressHUD show];
                 // 1.从母机中删除子机
-               [LxmBLEManager.shareManager delDevice:subDevice fromDevice:master completed:^(BOOL success, NSString *tips) {
-                   // 1.从子机中删除母机
-                   [LxmBLEManager.shareManager delDevice:master fromDevice:subDevice completed:^(BOOL success, NSString *tips) {
-                       // 3.发通知更新子机列表
-                           [LxmEventBus sendEvent:@"UpdateTongXinIdList" data:nil];
-                           // 4.调用接口同步
-                           [LxmNetworking networkingPOST:[Base_URL stringByAppendingString:@"user_clearOwerEqu.do"] parameters:@{@"token":[LxmTool ShareTool].session_token,@"userEquId":self.userEquId,@"communication":_deviceModel.communication} success:^(NSURLSessionDataTask *task, id responseObject) {
-                               [SVProgressHUD dismiss];
-                               if ([[responseObject objectForKey:@"key"] integerValue] == 1) {
-                                   [LxmBLEManager.shareManager disConnectPeripheral:[LxmBLEManager.shareManager peripheralWithTongXinId:_deviceModel.communication]];
-                                   LxmTool.ShareTool.isLogin = NO;
-                       
-                                   [[NSNotificationCenter defaultCenter] postNotificationName:@"bindingListChanged" object:nil];
-                                   [LxmEventBus sendEvent:@"subdeviceBandSuccess" data:nil];
-                                   [self.navigationController popViewControllerAnimated:YES];
-                               }else{
-                                   [UIAlertController showAlertWithKey:[responseObject objectForKey:@"key"] message:[responseObject objectForKey:@"message"] atVC:self];
-                               }
-                           } failure:^(NSURLSessionDataTask *task, NSError *error) {
-                               [SVProgressHUD dismiss];
-                           }];
-                       
-//                       [LxmBLEManager.shareManager addDevice:subDevice deviceName:_deviceModel.nickname toDevice:master completed:^(BOOL success, NSString *tips) {
-//                       }];
-                      
-                   }];
-               }];
+                [LxmBLEManager.shareManager delDevice:subDevice fromDevice:master completed:^(BOOL success, NSString *tips) {
+                    // 1.从子机中删除母机
+                    [LxmBLEManager.shareManager delDevice:master fromDevice:subDevice completed:^(BOOL success, NSString *tips) {
+                        // 3.发通知更新子机列表
+                        [LxmEventBus sendEvent:@"UpdateTongXinIdList" data:nil];
+                        // 4.调用接口同步
+                        [LxmNetworking networkingPOST:[Base_URL stringByAppendingString:@"user_clearOwerEqu.do"] parameters:@{@"token":[LxmTool ShareTool].session_token,@"userEquId":self.userEquId,@"communication":_deviceModel.communication} success:^(NSURLSessionDataTask *task, id responseObject) {
+                            [SVProgressHUD dismiss];
+                            if ([[responseObject objectForKey:@"key"] integerValue] == 1) {
+                                [LxmBLEManager.shareManager disConnectPeripheral:[LxmBLEManager.shareManager peripheralWithTongXinId:_deviceModel.communication]];
+                                LxmTool.ShareTool.isLogin = NO;
+                                
+                                [[NSNotificationCenter defaultCenter] postNotificationName:@"bindingListChanged" object:nil];
+                                [LxmEventBus sendEvent:@"subdeviceBandSuccess" data:nil];
+                                [self.navigationController popViewControllerAnimated:YES];
+                            }else{
+                                [UIAlertController showAlertWithKey:[responseObject objectForKey:@"key"] message:[responseObject objectForKey:@"message"] atVC:self];
+                            }
+                        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+                            [SVProgressHUD dismiss];
+                        }];
+                        
+                        //                       [LxmBLEManager.shareManager addDevice:subDevice deviceName:_deviceModel.nickname toDevice:master completed:^(BOOL success, NSString *tips) {
+                        //                       }];
+                        
+                    }];
+                }];
             }]];
             [controller1 addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
             [self presentViewController:controller1 animated:YES completion:nil];
@@ -394,8 +432,8 @@
             }];
             [controller1 addAction:[UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 if (!self.isConnectWork) {
-                   [SVProgressHUD showErrorWithStatus:@"当前无互联网连接!"];
-                   return;
+                    [SVProgressHUD showErrorWithStatus:@"当前无互联网连接!"];
+                    return;
                 }
                 UITextField *tf = controller1.textFields.firstObject;
                 if (tf.text.intValue < 0 || tf.text.intValue > 300) {
@@ -421,19 +459,38 @@
         }else if (indexPath.row == 3) {
             
             //升级操作
+            self.tableView.userInteractionEnabled= NO;
+            CBPeripheral * periPheral = [LxmBLEManager.shareManager peripheralWithTongXinId:self.tongxunID];
             
-        NSString * path  = [[NSBundle mainBundle] pathForResource:@"6.0 son" ofType:@".zip"];
-        DFUFirmware *selectedFirmware = [[DFUFirmware alloc] initWithZipFile:[NSData dataWithContentsOfFile:path]];
-        DFUServiceInitiator * dfuInitiator = [[DFUServiceInitiator alloc]initWithQueue: dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
-        [dfuInitiator withFirmware:selectedFirmware];
-        dfuInitiator.delegate = self;
-        dfuInitiator.progressDelegate = self;
-        dfuInitiator.logger = self;
-        dfuInitiator.enableUnsafeExperimentalButtonlessServiceInSecureDfu = YES;
+            [[LxmBLEManager shareManager] nowCheckPowerForPer:periPheral];
             
-         CBPeripheral * periPheral = [LxmBLEManager.shareManager peripheralWithTongXinId:self.tongxunID];
-//
-          DFUServiceInitiator * dfuController = [[dfuInitiator withFirmware:selectedFirmware] startWithTarget:periPheral];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                NSLog(@"%@",@"123456");
+                
+                if (periPheral.power.intValue < 25 && periPheral.power.intValue != 0) {
+                    [SVProgressHUD showErrorWithStatus:@"升级必须电量大于25%"];
+                    self.tableView.userInteractionEnabled= YES;
+                    return;
+                }else {
+                    
+                    [[LxmBLEManager shareManager] checkVersion:periPheral  completed:^(BOOL success, NSString *hVersion, NSString *fVersion) {
+                        self.tableView.userInteractionEnabled= YES;
+                        LxmShengJiSheBeiVC * vc =[[LxmShengJiSheBeiVC alloc] init];
+                        vc.hidesBottomBarWhenPushed = YES;
+                        vc.type = @"2";
+                        vc.noStr = hVersion;
+                        vc.firmwareNo = fVersion;
+                        vc.peripheral = periPheral;
+                        vc.isZhengChang = YES;
+                        [self.navigationController pushViewController:vc animated:YES];
+                        self.tableView.userInteractionEnabled= YES;
+                        
+                        
+                    }];
+                }
+                
+                
+            });
             
         }
     }
@@ -441,23 +498,23 @@
 
 - (void)dfuProgressDidChangeFor:(NSInteger)part outOf:(NSInteger)totalParts to:(NSInteger)progress currentSpeedBytesPerSecond:(double)currentSpeedBytesPerSecond avgSpeedBytesPerSecond:(double)avgSpeedBytesPerSecond {
     NSLog(@"\n\n\n %d",progress);
-
+    
     NSLog(@"%@",@"123");
     
 }
 
 - (void)dfuError:(enum DFUError)error didOccurWithMessage:(NSString *)message {
     NSLog(@"\n\nmessage ===== %@",message);
-
+    
     NSLog(@"%@",@"");
-
+    
     
 }
 
 - (void)logWith:(enum LogLevel)level message:(NSString *)message {
     
     NSLog(@"\n\nmessage =yyyyy==== %@",message);
-
+    
     NSLog(@"%@",@"");
     
 }

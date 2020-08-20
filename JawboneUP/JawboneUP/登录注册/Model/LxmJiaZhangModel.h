@@ -40,11 +40,16 @@
 @property (nonatomic,strong)NSString *safeDistance;/* 安全距离 */
 @property (nonatomic,strong)NSString *stepNum;/* 步数 */
 @property (nonatomic,strong)NSString *isRealTime;/* 是否实时 */
-
 @property (nonatomic,strong)NSNumber *powerStatus;/* 0 电量正常 2 充电中 3 以充满 4 低电量 */
+
+@property (nonatomic,strong)NSString *hardwareVersion;/* 硬件号 */
+@property (nonatomic,strong)NSString *firmwareVersion;/* 固件号 */
+@property (nonatomic,strong)NSString *n_firmware_version;/* 最新版本号 */
 
 #pragma mark - local
 @property (nonatomic, assign) BOOL isConnect;
+@property (nonatomic, assign) BOOL isCanUp;
+@property (nonatomic, assign) BOOL isCancel;
 @property (nonatomic, strong) NSNumber *power;
 @property (nonatomic, strong) NSNumber *distance;
 @property (nonatomic, strong) NSNumber *step;

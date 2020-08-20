@@ -25,6 +25,9 @@ typedef void(^setSubPeripheralPhoneCallBack)(BOOL success, NSString *tips);
 
 @property (nonatomic, strong) CBCentralManager *centralManager;
 
+- (void)startScan;
+- (void)stopScan;
+
 @property (nonatomic, assign) BOOL isTongbuStep;
 @property (nonatomic, assign) BOOL isTongbuDistance;
 

@@ -24,6 +24,8 @@
 
 #import "UIControl+AfterTimeAble.h"
 
+#import "LxmShengJiSheBeiVC.h"
+
 @interface LxmNewHomeVC ()
 
 @property (nonatomic, strong) LxmMessageBtn *rightbtn;
@@ -80,6 +82,7 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     _isAppear = NO;
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -88,20 +91,22 @@
     if (LxmBLEManager.shareManager.centralManager.state == 4) {
         UIAlertController *controller1 = [UIAlertController alertControllerWithTitle:nil message:@"蓝牙已关闭" preferredStyle:UIAlertControllerStyleAlert];
         [controller1 addAction:[UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:nil]];
-         [UIApplication.sharedApplication.delegate.window.rootViewController presentViewController:controller1 animated:YES completion:nil];
+        [UIApplication.sharedApplication.delegate.window.rootViewController presentViewController:controller1 animated:YES completion:nil];
     }
+    
     
     
     [LxmNetworking networkingPOST:[LxmURLDefine checkMsg] parameters:@{@"token":[LxmTool ShareTool].session_token} success:^(NSURLSessionDataTask *task, id responseObject) {
         if ([[responseObject objectForKey:@"key"] intValue] == 1) {
             NSNumber * status = [[responseObject objectForKey:@"result"] objectForKey:@"statue"];
-//            _havenewMsg = [status intValue] == 1 ?YES:NO;
+            //            _havenewMsg = [status intValue] == 1 ?YES:NO;
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
     }];
     
-    [LxmEventBus sendEvent:@"UpdateTongXinIdList" data:nil];
+    //    //提示更新
+    //    [self showUpdate];
 }
 
 - (void)viewDidLoad {
@@ -113,7 +118,7 @@
     self.deviceArr = [NSMutableArray array];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightbtn];
-        
+    
     NSNumber *isfirst = [NSUserDefaults.standardUserDefaults objectForKey:@"isfirst"];
     if (!isfirst.boolValue) {
         self.count = 0;
@@ -125,6 +130,28 @@
     
     
     WeakObj(self);
+    
+    [LxmEventBus sendEvent:@"UpdateTongXinIdList" data:nil];
+    
+    [LxmEventBus registerEvent:@"shengji" block:^(NSDictionary * dict) {
+        [[LxmBLEManager shareManager] stopScan];
+        LxmShengJiSheBeiVC * vc =[[LxmShengJiSheBeiVC alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
+        vc.dataDict = dict;
+        [selfWeak.navigationController pushViewController:vc animated:YES];
+        
+    }];
+    
+    [LxmEventBus registerEvent:@"sjcg" block:^(id data) {
+        [[LxmBLEManager shareManager] startScan];
+        
+    }];
+    
+    //返回刷新数据
+    [LxmEventBus registerEvent:@"load" block:^(id data) {
+        [selfWeak.tableView reloadData];
+    }];
+    
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [selfWeak loadData];
     }];
@@ -132,7 +159,7 @@
     [LxmEventBus registerEvent:@"modifyUserInfoSuccess" block:^(id data) {
         [selfWeak loadData];
     }];
-
+    
     [self loadData];
     [LxmEventBus registerEvent:LxmDeviceShuaXinDistanceNoti block:^(id data) {
         NSString *tongxinId = data[@"tongxinId"];
@@ -268,17 +295,17 @@
             for (LxmDeviceModel *device in arr) {
                 if ([device.communication isEqualToString:tongxinId]) {
                     if (isRealTime.intValue == 1) {//对子机发开
-                         [LxmBLEManager.shareManager openOrCloseRealDistance:YES peripheral:peripheral communication:nil completed:^(BOOL success, BOOL isOpen) {
-                             if (success) {
-                                 peripheral.isYanshi = YES;
-                                 [selfWeak updateDevice1:device info:@{@"isRealTime":@"1"} completed:^(BOOL success) {
-                                     if (success) {
-                                         peripheral.isRealTime = @"1";
-                                         device.isRealTime = @"1";
-                                         [selfWeak.tableView reloadData];
-                                     }}];
-                             }
-                         }];
+                        [LxmBLEManager.shareManager openOrCloseRealDistance:YES peripheral:peripheral communication:nil completed:^(BOOL success, BOOL isOpen) {
+                            if (success) {
+                                peripheral.isYanshi = YES;
+                                [selfWeak updateDevice1:device info:@{@"isRealTime":@"1"} completed:^(BOOL success) {
+                                    if (success) {
+                                        peripheral.isRealTime = @"1";
+                                        device.isRealTime = @"1";
+                                        [selfWeak.tableView reloadData];
+                                    }}];
+                            }
+                        }];
                     } else {//对主机发对应子机关
                         [LxmBLEManager.shareManager openOrCloseRealDistance:NO peripheral:LxmBLEManager.shareManager.master communication:peripheral.tongxinId completed:^(BOOL success, BOOL isOpen) {
                             if (success) {
@@ -356,7 +383,16 @@
                 [tmpArr addObject:deviceModel];
                 CBPeripheral *p = [LxmBLEManager.shareManager peripheralWithTongXinId:deviceModel.communication];
                 deviceModel.isConnect = [LxmBLEManager.shareManager isConnectWithTongXinId:deviceModel.communication];
+                NSString * fv  = p.fVersion;
+                NSString * hv  = p.hVersion;
                 
+                if ([dict[@"new_firmware_version"] intValue] != fv.intValue) {
+                    deviceModel.isCanUp = YES;
+                }else {
+                    deviceModel.isCanUp = NO;
+                }
+                deviceModel.hardwareVersion = p.hVersion;
+                deviceModel.firmwareVersion = p.fVersion;
                 deviceModel.step = p.step;
                 deviceModel.power = p.power;
                 
@@ -364,9 +400,11 @@
                     LxmBLEManager.shareManager.masterTongXinId = deviceModel.communication;
                     selfWeak.mainModel = deviceModel;
                 } else {//子机
-                     [_deviceArr addObject:deviceModel];
+                    [_deviceArr addObject:deviceModel];
                 }
             }
+            
+            
             
             if (LxmBLEManager.shareManager.serverDeviceArr.count > 0) {
                 for (LxmDeviceModel *model in _deviceArr) {
@@ -377,8 +415,14 @@
                     }
                 }
             }
-    
+            
             [selfWeak.tableView reloadData];
+            
+            
+            [self showUpdate];
+            
+            
+            
             
             LxmBLEManager.shareManager.serverDeviceArr = tmpArr;
             [LxmBLEManager.shareManager connectServerDeviceIfNeed];
@@ -389,6 +433,98 @@
         [selfWeak endRefresh];
     }];
 }
+
+
+//提示更新操作
+- (void)showUpdate {
+    
+    for (int i = 0 ; i < self.deviceArr.count+1; i++) {
+        if (i == 0) {
+            
+            if (self.mainModel.isCanUp && !self.mainModel.isCancel) {
+                
+                UIAlertController * alertcontroller = [UIAlertController alertControllerWithTitle:@"提示" message:[NSString stringWithFormat:@"设备\"%@\"有新的固件可以更新,是否更新",self.mainModel.equNickname] preferredStyle:UIAlertControllerStyleAlert];
+                [alertcontroller addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    self.mainModel.isCancel = YES;
+                    [self showUpdate];
+                }]];
+                [alertcontroller addAction:[UIAlertAction actionWithTitle:@"更新" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    CBPeripheral * peripheral = [[LxmBLEManager shareManager] peripheralWithTongXinId:self.mainModel.communication];
+                    NSString * fv = peripheral.fVersion;
+                    NSString * hv = peripheral.hVersion;
+                    if (peripheral == nil) {
+                        [SVProgressHUD showErrorWithStatus:@"还没有链接上蓝牙,请稍后"];
+                        return;
+                    }
+                    
+                    LxmShengJiSheBeiVC * vc =[[LxmShengJiSheBeiVC alloc] init];
+                    vc.noStr = peripheral.hVersion;
+                    vc.firmwareNo = [@(peripheral.fVersion.intValue - 1) stringValue];
+                    vc.peripheral = peripheral;
+                    vc.type = @"1";
+                    vc.isZhengChang = YES;
+                    WeakObj(self);
+                    vc.shengJiChengGongBlock = ^{
+                        selfWeak.mainModel.isCanUp = NO;
+                        [selfWeak showUpdate];
+                    };
+                    vc.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:vc animated:YES];
+                    
+                }]];
+                [self presentViewController:alertcontroller animated:YES completion:nil];
+                
+                break;;;
+                
+            }
+        }else {
+            
+            
+            if (self.deviceArr[i-1].isCanUp && !self.deviceArr[i-1].isCancel) {
+                
+                UIAlertController * alertcontroller = [UIAlertController alertControllerWithTitle:@"提示" message:[NSString stringWithFormat:@"设备\"%@\"有新的固件可以更新,是否更新",self.deviceArr[i-1].equNickname] preferredStyle:UIAlertControllerStyleAlert];
+                [alertcontroller addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    self.deviceArr[i-1].isCancel = YES;
+                    [self showUpdate];
+                }]];
+                [alertcontroller addAction:[UIAlertAction actionWithTitle:@"更新" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    
+                    CBPeripheral * peripheral = [[LxmBLEManager shareManager] peripheralWithTongXinId:self.deviceArr[i-1].communication];
+                    NSString * fv = peripheral.fVersion;
+                    NSString * hv = peripheral.hVersion;
+                    if (peripheral == nil) {
+                        [SVProgressHUD showErrorWithStatus:@"还没有链接上蓝牙,请稍后"];
+                        return;
+                    }
+                    
+                    LxmShengJiSheBeiVC * vc =[[LxmShengJiSheBeiVC alloc] init];
+                    vc.noStr = peripheral.hVersion;
+                    vc.firmwareNo = [@(peripheral.fVersion.intValue - 1) stringValue];
+                    vc.peripheral = peripheral;
+                    vc.hidesBottomBarWhenPushed = YES;
+                    vc.type = @"2";
+                    vc.isZhengChang = YES;
+                    WeakObj(self);
+                    vc.shengJiChengGongBlock = ^{
+                        selfWeak.deviceArr[i-1].isCanUp = NO;
+                        [selfWeak showUpdate];
+                    };
+                    [self.navigationController pushViewController:vc animated:YES];
+                    
+                }]];
+                [self presentViewController:alertcontroller animated:YES completion:nil];
+                
+                break;;
+                
+            }
+            
+        }
+        
+        
+    }
+    
+}
+
 
 - (void)endRefresh {
     [SVProgressHUD dismiss];
@@ -490,7 +626,7 @@
         [SVProgressHUD showErrorWithStatus:@"正在同步硬件数据!,所有硬件相关操作暂不能执行!"];
         return;
     }
-//    CBPeripheral *p = [LxmBLEManager.shareManager peripheralWithTongXinId:model.communication];
+    //    CBPeripheral *p = [LxmBLEManager.shareManager peripheralWithTongXinId:model.communication];
     CBPeripheral *mainP = [LxmBLEManager.shareManager peripheralWithTongXinId:self.mainModel.communication];
     
     if (mainP.state != CBPeripheralStateConnected) {
@@ -498,30 +634,30 @@
         return;
     }
     LxmNewHomeSetSaftyDistanceAlertView *alerView = [[LxmNewHomeSetSaftyDistanceAlertView alloc] initWithFrame:UIScreen.mainScreen.bounds];
-        WeakObj(self);
+    WeakObj(self);
     [alerView showWithNumber:model.safeDistance.integerValue setBlock:^(NSInteger num) {
         if (num != model.safeDistance.integerValue) {
             [SVProgressHUD show];
             [LxmBLEManager.shareManager setDistance:model.communication distance:num completed:^(BOOL success, NSString *tips) {
                 [SVProgressHUD dismiss];
-
+                
                 if (success) {
                     [selfWeak updateDevice:model info:@{@"safeDistance":@(num)} completed:^(BOOL success) {
                         if (success) {
                             model.safeDistance = @(num).stringValue;
                             [selfWeak.tableView reloadData];
                             
-//                            for (LxmDeviceModel *mm  in [LxmBLEManager shareManager].serverDeviceArr) {
-//                                if ([mm.communication isEqualToString:model.communication]) {
-//                                    if (model.safeDistance.intValue != 0) {
-//                                        mm.safeDistance =  @(num).stringValue;
-//                                        break;
-//                                    }
-//
-//                                }
-//                            }
-//
-//                            [LxmEventBus sendEvent:@"subdeviceBandSuccess" data:nil];
+                            //                            for (LxmDeviceModel *mm  in [LxmBLEManager shareManager].serverDeviceArr) {
+                            //                                if ([mm.communication isEqualToString:model.communication]) {
+                            //                                    if (model.safeDistance.intValue != 0) {
+                            //                                        mm.safeDistance =  @(num).stringValue;
+                            //                                        break;
+                            //                                    }
+                            //
+                            //                                }
+                            //                            }
+                            //
+                            //                            [LxmEventBus sendEvent:@"subdeviceBandSuccess" data:nil];
                         } else {
                             [SVProgressHUD showErrorWithStatus:@"同步设备信息失败"];
                         }
@@ -565,9 +701,9 @@
                     [LxmBLEManager.shareManager closeMasterCeju];
                 }
                 [selfWeak updateDevice:model info:@{@"isRealTime":@"2"} completed:^(BOOL success) {
-                   
+                    
                 }];
-
+                
             } else {
                 [SVProgressHUD dismiss];
             }
@@ -596,9 +732,9 @@
                             [LxmBLEManager.shareManager openMasterCeju];
                         });
                         
-                       
+                        
                         [selfWeak updateDevice:model info:@{@"isRealTime":@"1"} completed:^(BOOL success) {
-                             
+                            
                         }];
                     } else {
                         [SVProgressHUD dismiss];
@@ -620,7 +756,7 @@
                             @"type":model.type
     };
     [params addEntriesFromDictionary:dict1];
-//    [SVProgressHUD show];
+    //    [SVProgressHUD show];
     [LxmNetworking networkingPOST:[LxmURLDefine getModifyDeviceURL] parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
         [SVProgressHUD dismiss];
         if ([[responseObject objectForKey:@"key"] intValue] == 1) {
@@ -1006,7 +1142,7 @@
                     } else {
                         _rightView.numLabel.text = _deviceModel.distance.stringValue;
                     }
-                   
+                    
                 }
             } else {
                 _rightView.numLabel.text = @"0";
@@ -1218,7 +1354,7 @@
         _bottomView = [[LxmNewHomeCellBottomView alloc] init];
         [_bottomView.leftView.setButton addTarget:self action:@selector(setDistanceClick) forControlEvents:UIControlEventTouchUpInside];
         [_bottomView.rightView.setButton addTarget:self action:@selector(setopenClick:) forControlEvents:UIControlEventTouchUpInside];
-
+        
     }
     return _bottomView;
 }
@@ -1253,7 +1389,7 @@
                             if (_deviceModel.type.intValue == 2) {
                                 NSLog(@"zi");
                             }
-                           _bgImgView.image = [UIImage imageNamed:@"bg011"];
+                            _bgImgView.image = [UIImage imageNamed:@"bg011"];
                         }
                     } else {
                         [self.bottomView.rightView.setButton setBackgroundImage:[UIImage imageNamed:@"guan"] forState:UIControlStateNormal];
@@ -1321,33 +1457,33 @@
         return;
     }
     //首先要打开主机的自动测距 ee080c01ff 测距 打开 对子机母机都要发指令 关  只需要发给主机带上子机的通信id
-     CBPeripheral *p = [LxmBLEManager.shareManager peripheralWithTongXinId:_deviceModel.communication];
-     CBPeripheral *mainP = [LxmBLEManager.shareManager peripheralWithTongXinId:self.mainModel.communication];
-     if (mainP.state != CBPeripheralStateConnected) {
-         [SVProgressHUD showErrorWithStatus:@"当前主机设备已经断连!"];
-         return;
-     }
-     if (mainP.powerStatus.intValue != 0) {
-         UIAlertController *controller1 = [UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"%@,无法打开",mainP.powerStatus.intValue == 2 ? @"充电中":mainP.powerStatus.intValue == 3 ? @"充电中" : @"低电量"] preferredStyle:UIAlertControllerStyleAlert];
-         [controller1 addAction:[UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:nil]];
-          [UIApplication.sharedApplication.delegate.window.rootViewController presentViewController:controller1 animated:YES completion:nil];
-         return;
-     } else {
-         if (p.powerStatus.intValue != 0) {
-         //子机非正常电量状态下，如果用户操作打开测距，提醒用户电量低或者正在充电。然后再给子机主动发条查询电量指令(0F)
-             [LxmBLEManager.shareManager nowCheckPowerForPer:p];
-             UIAlertController *controller1 = [UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"%@,无法打开!",p.powerStatus.intValue == 2 ? @"充电中":p.powerStatus.intValue == 3 ? @"充电中":@"低电量"] preferredStyle:UIAlertControllerStyleAlert];
-             [controller1 addAction:[UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:nil]];
-              [UIApplication.sharedApplication.delegate.window.rootViewController presentViewController:controller1 animated:YES completion:nil];
-             return;
-         } else {
-             [btn enabledAfter:1.5];
-             if (self.setRealOpenBlock) {
-                 self.setRealOpenBlock(self.deviceModel);
-             }
-         }
-     }
-     
+    CBPeripheral *p = [LxmBLEManager.shareManager peripheralWithTongXinId:_deviceModel.communication];
+    CBPeripheral *mainP = [LxmBLEManager.shareManager peripheralWithTongXinId:self.mainModel.communication];
+    if (mainP.state != CBPeripheralStateConnected) {
+        [SVProgressHUD showErrorWithStatus:@"当前主机设备已经断连!"];
+        return;
+    }
+    if (mainP.powerStatus.intValue != 0) {
+        UIAlertController *controller1 = [UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"%@,无法打开",mainP.powerStatus.intValue == 2 ? @"充电中":mainP.powerStatus.intValue == 3 ? @"充电中" : @"低电量"] preferredStyle:UIAlertControllerStyleAlert];
+        [controller1 addAction:[UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:nil]];
+        [UIApplication.sharedApplication.delegate.window.rootViewController presentViewController:controller1 animated:YES completion:nil];
+        return;
+    } else {
+        if (p.powerStatus.intValue != 0) {
+            //子机非正常电量状态下，如果用户操作打开测距，提醒用户电量低或者正在充电。然后再给子机主动发条查询电量指令(0F)
+            [LxmBLEManager.shareManager nowCheckPowerForPer:p];
+            UIAlertController *controller1 = [UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"%@,无法打开!",p.powerStatus.intValue == 2 ? @"充电中":p.powerStatus.intValue == 3 ? @"充电中":@"低电量"] preferredStyle:UIAlertControllerStyleAlert];
+            [controller1 addAction:[UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:nil]];
+            [UIApplication.sharedApplication.delegate.window.rootViewController presentViewController:controller1 animated:YES completion:nil];
+            return;
+        } else {
+            [btn enabledAfter:1.5];
+            if (self.setRealOpenBlock) {
+                self.setRealOpenBlock(self.deviceModel);
+            }
+        }
+    }
+    
 }
 
 @end

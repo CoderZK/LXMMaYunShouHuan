@@ -14,14 +14,14 @@
 #import "LxmBLEManager+Tongbu.h"
 @interface LxmBLEManager ()<CBCentralManagerDelegate,CBPeripheralDelegate> {
     NSMutableArray<CBPeripheral *> *_devices;
-
+    
     VersionCallBack _versionCallback;
     CommunicationListCallBack _tongxinIdListCallback;
-
+    
     setPeripheralNameCallBack _setNameCallBack;
     
     setSubPeripheralPhoneCallBack _setPhoneCallBack;
-
+    
     OpenOrCloseCallBack _openOrCloseCallBack;
     NSTimer *_powerTimer;
     NSTimer *_jibuTimer;
@@ -81,13 +81,13 @@
             }
         }
         if (isHaveDisconnect) {
-           [self nowCheckPowerForPer:LxmBLEManager.shareManager.master];
+            [self nowCheckPowerForPer:LxmBLEManager.shareManager.master];
         } else {
             for (CBPeripheral *p in arr) {
                 [self nowCheckPowerForPer:p]; // 查询电量
             }
         }
-
+        
     }
 }
 
@@ -446,15 +446,15 @@
     }
     [p.stepDict removeAllObjects];
     CBCharacteristic * fff6 = [self fff6ForPer:p];
-       if (fff6) {
-           p.bushuChaXunBack = completed;
-           NSData *data = [LxmDataManager chaxunBuShuWithDate:date];
-           [p writeValue:data forCharacteristic:fff6 type:CBCharacteristicWriteWithoutResponse];
-           [p cancelBuShuCallBlockAfter:20];
-       } else {
-           p.bushuChaXunBack = completed;
-           [p runBuShuCallBlock];
-       }
+    if (fff6) {
+        p.bushuChaXunBack = completed;
+        NSData *data = [LxmDataManager chaxunBuShuWithDate:date];
+        [p writeValue:data forCharacteristic:fff6 type:CBCharacteristicWriteWithoutResponse];
+        [p cancelBuShuCallBlockAfter:20];
+    } else {
+        p.bushuChaXunBack = completed;
+        [p runBuShuCallBlock];
+    }
 }
 
 /**
@@ -470,15 +470,15 @@
     }
     [p.distanceDict removeAllObjects];
     CBCharacteristic * fff6 = [self fff6ForPer:p];
-       if (fff6) {
-           p.distanceChaXunBack = completed;
-           NSData *data = [LxmDataManager chaxunDistanceWithDate:date];
-           [p writeValue:data forCharacteristic:fff6 type:CBCharacteristicWriteWithoutResponse];
-           [p cancelDistanceCallbackAfter:20];
-       } else {
-           p.distanceChaXunBack = completed;
-           [p runDistanceCallback];
-       }
+    if (fff6) {
+        p.distanceChaXunBack = completed;
+        NSData *data = [LxmDataManager chaxunDistanceWithDate:date];
+        [p writeValue:data forCharacteristic:fff6 type:CBCharacteristicWriteWithoutResponse];
+        [p cancelDistanceCallbackAfter:20];
+    } else {
+        p.distanceChaXunBack = completed;
+        [p runDistanceCallback];
+    }
 }
 
 /**
@@ -640,14 +640,14 @@
 - (void)setDeviceName:(CBPeripheral *)per tongxinID:(NSString *)communication deviceName:(NSString *)name completed:(setPeripheralNameCallBack)completed {
     CBCharacteristic * fff6 = [self fff6ForPer:per];
     if (fff6) {
-       _setNameCallBack = completed;
-       NSData *namedata = [name GB2312Data];
-       NSData * data = [LxmDataManager setDeviceName:communication nameData:namedata];
-       [per writeValue:data forCharacteristic:fff6 type:CBCharacteristicWriteWithoutResponse];
+        _setNameCallBack = completed;
+        NSData *namedata = [name GB2312Data];
+        NSData * data = [LxmDataManager setDeviceName:communication nameData:namedata];
+        [per writeValue:data forCharacteristic:fff6 type:CBCharacteristicWriteWithoutResponse];
     }else{
-       if (completed) {
-           completed(NO,@"硬件名称更新失败!");
-       }
+        if (completed) {
+            completed(NO,@"硬件名称更新失败!");
+        }
     }
 }
 
@@ -655,13 +655,13 @@
 - (void)setSubDevicePhone:(CBPeripheral *)per phone:(NSString *)phone completed:(setSubPeripheralPhoneCallBack)completed {
     CBCharacteristic * fff6 = [self fff6ForPer:per];
     if (fff6) {
-       _setPhoneCallBack = completed;
-       NSData * data = [LxmDataManager setSubDevicePhone:phone];
-       [per writeValue:data forCharacteristic:fff6 type:CBCharacteristicWriteWithoutResponse];
+        _setPhoneCallBack = completed;
+        NSData * data = [LxmDataManager setSubDevicePhone:phone];
+        [per writeValue:data forCharacteristic:fff6 type:CBCharacteristicWriteWithoutResponse];
     }else{
-       if (completed) {
-           completed(NO,@"子机紧急电话设置失败!");
-       }
+        if (completed) {
+            completed(NO,@"子机紧急电话设置失败!");
+        }
     }
 }
 
@@ -691,6 +691,18 @@
 
 #pragma mark - 同步数据
 
+#pragma mark - 蓝牙搜索
+- (void)startScan {
+    if (self.centralManager != nil) {
+        [self.centralManager scanForPeripheralsWithServices:@[[CBUUID UUIDWithString:@"FFF0"],[CBUUID UUIDWithString:@"FE59"]] options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@(YES)}];
+    }
+}
+
+- (void)stopScan {
+    if (self.centralManager != nil) {
+        [self.centralManager stopScan];
+    }
+}
 
 #pragma mark - CBCentralManagerDelegate
 //蓝牙状态改变
@@ -699,35 +711,36 @@
         case CBCentralManagerStateUnknown: {
             UIAlertController *controller1 = [UIAlertController alertControllerWithTitle:nil message:@"蓝牙状态未知" preferredStyle:UIAlertControllerStyleAlert];
             [controller1 addAction:[UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:nil]];
-             [UIApplication.sharedApplication.delegate.window.rootViewController presentViewController:controller1 animated:YES completion:nil];
+            [UIApplication.sharedApplication.delegate.window.rootViewController presentViewController:controller1 animated:YES completion:nil];
         }
             break;
             
         case CBCentralManagerStateResetting:{
             UIAlertController *controller1 = [UIAlertController alertControllerWithTitle:nil message:@"蓝牙状态未知" preferredStyle:UIAlertControllerStyleAlert];
             [controller1 addAction:[UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:nil]];
-             [UIApplication.sharedApplication.delegate.window.rootViewController presentViewController:controller1 animated:YES completion:nil];
+            [UIApplication.sharedApplication.delegate.window.rootViewController presentViewController:controller1 animated:YES completion:nil];
         }
             break;
             
         case CBCentralManagerStateUnsupported: {
-                UIAlertController *controller1 = [UIAlertController alertControllerWithTitle:nil message:@"不支持蓝牙" preferredStyle:UIAlertControllerStyleAlert];
-                [controller1 addAction:[UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:nil]];
-                 [UIApplication.sharedApplication.delegate.window.rootViewController presentViewController:controller1 animated:YES completion:nil];
-            }
+            UIAlertController *controller1 = [UIAlertController alertControllerWithTitle:nil message:@"不支持蓝牙" preferredStyle:UIAlertControllerStyleAlert];
+            [controller1 addAction:[UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:nil]];
+            [UIApplication.sharedApplication.delegate.window.rootViewController presentViewController:controller1 animated:YES completion:nil];
+        }
             break;
             
         case CBCentralManagerStateUnauthorized:{
             UIAlertController *controller1 = [UIAlertController alertControllerWithTitle:nil message:@"蓝牙未认证" preferredStyle:UIAlertControllerStyleAlert];
             [controller1 addAction:[UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:nil]];
-             [UIApplication.sharedApplication.delegate.window.rootViewController presentViewController:controller1 animated:YES completion:nil];
+            [UIApplication.sharedApplication.delegate.window.rootViewController presentViewController:controller1 animated:YES completion:nil];
         }
             break;
             
         case CBCentralManagerStatePoweredOff:{
-            UIAlertController *controller1 = [UIAlertController alertControllerWithTitle:nil message:@"蓝牙已关闭" preferredStyle:UIAlertControllerStyleAlert];
-            [controller1 addAction:[UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:nil]];
-             [UIApplication.sharedApplication.delegate.window.rootViewController presentViewController:controller1 animated:YES completion:nil];
+            [SVProgressHUD showSuccessWithStatus:@"蓝牙已关闭"];
+            //            UIAlertController *controller1 = [UIAlertController alertControllerWithTitle:nil message:@"蓝牙已关闭" preferredStyle:UIAlertControllerStyleAlert];
+            //            [controller1 addAction:[UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:nil]];
+            //             [UIApplication.sharedApplication.delegate.window.rootViewController presentViewController:controller1 animated:YES completion:nil];
             for (CBPeripheral *peripheral in _devices) {
                 [self sendConnectStateChangeNotiForPeripheral:peripheral];
             }
@@ -738,10 +751,15 @@
             break;
             
         case CBCentralManagerStatePoweredOn: {
-            UIAlertController *controller1 = [UIAlertController alertControllerWithTitle:nil message:@"蓝牙已开启" preferredStyle:UIAlertControllerStyleAlert];
-            [controller1 addAction:[UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:nil]];
-             [UIApplication.sharedApplication.delegate.window.rootViewController presentViewController:controller1 animated:YES completion:nil];
-            [central scanForPeripheralsWithServices:@[[CBUUID UUIDWithString:@"FFF0"]] options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@(YES)}];
+            
+            [SVProgressHUD showSuccessWithStatus:@"蓝牙已开启"];
+            
+            //            UIAlertController *controller1 = [UIAlertController alertControllerWithTitle:nil message:@"蓝牙已开启" preferredStyle:UIAlertControllerStyleAlert];
+            //            [controller1 addAction:[UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:nil]];
+            //             [UIApplication.sharedApplication.delegate.window.rootViewController presentViewController:controller1 animated:YES completion:nil];
+            [central scanForPeripheralsWithServices:@[[CBUUID UUIDWithString:@"FFF0"],[CBUUID UUIDWithString:@"FE59"]] options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@(YES)}];
+            self.centralManager = central;
+            //            [central scanForPeripheralsWithServices:nil options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@(YES)}];
             [_devices removeAllObjects];
             self.deviceList = _devices;
             [LxmEventBus sendEvent:@"deviceListChanged" data:nil];
@@ -755,42 +773,94 @@
 
 //发现外设
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary<NSString *, id> *)advertisementData RSSI:(NSNumber *)RSSI {
-
+    
     NSData *data = [advertisementData objectForKey:@"kCBAdvDataManufacturerData"];
     if (data) {
+        
         NSString *dataString = [LxmDataManager hexStringFromData:data];
-        NSString *targetString = nil;
-        if (dataString.length == 24) {
-            targetString = [dataString substringWithRange:NSMakeRange(4, 20)];
-        } else if (dataString.length == 20) {
-            targetString = dataString;
+        
+        if ([peripheral.name containsString:@"DFUMOM"] || [peripheral.name containsString:@"DFUSON"]) {
+            
+            if (dataString.length > 6) {
+                if (dataString.length == 18) {
+                    if ([peripheral.name containsString:@"DFUMOM"]) {
+                        [LxmEventBus sendEvent:@"shengji" data:@{@"no":@"3",@"type":@"1",@"per":peripheral}];
+                    }else {
+                        [LxmEventBus sendEvent:@"shengji" data:@{@"no":@"3",@"type":@"2",@"per":peripheral}];
+                    }
+                    
+                }else if (dataString.length == 20){
+                    if ([peripheral.name containsString:@"DFUMOM"]) {
+                        [LxmEventBus sendEvent:@"shengji" data:@{@"type":@"1",@"no":[dataString substringWithRange:NSMakeRange(dataString.length - 2, 2)],@"per":peripheral}];
+                    }else {
+                        [LxmEventBus sendEvent:@"shengji" data:@{@"type":@"2",@"no":[dataString substringWithRange:NSMakeRange(dataString.length - 2, 2)],@"per":peripheral}];
+                    }
+                    
+                }
+                
+            }
+            return;
+        }else {
+            NSString *targetString = nil;
+            if ([dataString hasPrefix:@"ffff"] || [dataString hasPrefix:@"FFFF"]) {
+                targetString = [dataString substringWithRange:NSMakeRange(4, dataString.length - 4)];
+            } else {
+                targetString = dataString;
+            }
+            if (targetString) {
+                
+                if (targetString.length == 20) {
+                    NSString *isMaster = [targetString substringWithRange:NSMakeRange(0, 2)];
+                    NSString *random = [targetString substringWithRange:NSMakeRange(2, 2)];
+                    //            NSString *power = [targetString substringWithRange:NSMakeRange(4, 2)];
+                    //                NSString *isBind = [targetString substringWithRange:NSMakeRange(6, 2)];
+                    NSString *tongxinId = [targetString substringWithRange:NSMakeRange(8, 12)];
+                    peripheral.tongxinId = tongxinId;
+                    peripheral.isMaster = [isMaster isEqualToString:@"02"];
+                    peripheral.hVersion = @"3";
+                    peripheral.fVersion = @"1";
+                    //            peripheral.power = power;
+                    peripheral.randomKey = random;
+                }else {
+                    
+                   
+                        NSString *isMaster = [targetString substringWithRange:NSMakeRange(0, 2)];
+                        NSString *random = [targetString substringWithRange:NSMakeRange(2, 2)];
+                        NSString *power = [targetString substringWithRange:NSMakeRange(4, 2)];
+                        //                NSString *isBind = [targetString substringWithRange:NSMakeRange(6, 2)];
+                        peripheral.fVersion = [targetString substringWithRange:NSMakeRange(8, 2)];
+                        peripheral.hVersion = [targetString substringWithRange:NSMakeRange(10, 2)];
+                        NSString *tongxinId = @"";
+                        if (dataString.length >= 24) {
+                             tongxinId = [targetString substringWithRange:NSMakeRange(12, 12)];
+                        }
+                        peripheral.tongxinId = tongxinId;
+                        peripheral.isMaster = [isMaster isEqualToString:@"02"];
+                        //            peripheral.power = power;
+                        peripheral.randomKey = random;
+                  
+                }
+                
+            }
+            
         }
-        if (targetString) {
-            NSString *isMaster = [targetString substringWithRange:NSMakeRange(0, 2)];
-            NSString *random = [targetString substringWithRange:NSMakeRange(2, 2)];
-//            NSString *power = [targetString substringWithRange:NSMakeRange(4, 2)];
-//                NSString *isBind = [targetString substringWithRange:NSMakeRange(6, 2)];
-            NSString *tongxinId = [targetString substringWithRange:NSMakeRange(8, 12)];
-            peripheral.tongxinId = tongxinId;
-            peripheral.isMaster = [isMaster isEqualToString:@"02"];
-//            peripheral.power = power;
-            peripheral.randomKey = random;
-        }
+        
+        
     }
     if (LxmTool.ShareTool.isLogin) {
         if (![_devices containsObject:peripheral]) {
             [_devices addObject:peripheral];
             self.deviceList = _devices;
             [LxmEventBus sendEvent:@"deviceListChanged" data:nil];
-          }
-          [self connectServerDeviceIfNeed];
+        }
+        [self connectServerDeviceIfNeed];
     }
 }
 
 //连接成功
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
     peripheral.delegate = self;
-    [peripheral discoverServices:@[[CBUUID UUIDWithString:@"FFF0"]]];
+    [peripheral discoverServices:@[[CBUUID UUIDWithString:@"FFF0"],[CBUUID UUIDWithString:@"FE59"]]];
     [self sendConnectStateChangeNotiForPeripheral:peripheral];
 }
 
@@ -836,7 +906,10 @@
                 }
                 
                 [self nowCheckStepForPer:peripheral]; // 查询实时步数
-                [self checkVersion:peripheral completed:nil]; // 查询版本号
+                [self checkVersion:peripheral completed:^(BOOL success, NSString *hVersion, NSString *fVersion) {
+                    peripheral.hVersion = hVersion;
+                    peripheral.fVersion = fVersion;
+                }]; // 查询版本号
                 [self tongbuDateForPer:peripheral];// 同步当前时间
                 
                 [self nowCheckPowerForPer:peripheral]; // 查询电量
@@ -845,6 +918,13 @@
                     [self getCommunicationListForPer:peripheral completed:^(BOOL success, CBPeripheral *per) {
                         [self tongbuSafeDistance:peripheral];
                     }];
+                }
+            }else if  ([peripheral.name hasPrefix:@"DFU"]) {
+                [peripheral setNotifyValue:YES forCharacteristic:cha];
+                [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(cancelConnect:) object:peripheral];
+                if (peripheral.connectCallback) {
+                    peripheral.connectCallback(YES, peripheral);
+                    peripheral.connectCallback = nil;
                 }
             }
             break;
@@ -862,7 +942,7 @@
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(nullable NSError *)error {
     NSData *data = characteristic.value;
-
+    
     Byte *resultByte = (Byte *)[data bytes];
     
     NSLog(@"datashi%@",data);
@@ -905,9 +985,9 @@
             }
         } else if (header == 0x15) { // 查询指定时间的距离
             int xuhao = resultByte[1]; // 总总共320包数据  每包20字节 出去前两字节 剩下的18字节是9条有效数据（高八位和底八位）
-//            if (peripheral.distanceDict.count >= 255*9 && xuhao < 100) {
-//                xuhao += 256;
-//            }
+            //            if (peripheral.distanceDict.count >= 255*9 && xuhao < 100) {
+            //                xuhao += 256;
+            //            }
             NSLog(@"-----序号-----计数:%d",xuhao);
             int num = (xuhao == 3 ? 8 : 9);
             for (int i = 0; i < num; i++) {
@@ -976,7 +1056,7 @@
                             NSString *two = [dd substringWithRange:NSMakeRange(1, 1)];
                             NSString *three = [dd substringWithRange:NSMakeRange(2, 1)];
                             if (three.intValue == 0 ) {
-                                 peripheral.distanceDict[@(index).stringValue] = [one stringByAppendingString:two];
+                                peripheral.distanceDict[@(index).stringValue] = [one stringByAppendingString:two];
                             } else {
                                 peripheral.distanceDict[@(index).stringValue] = [[[one stringByAppendingString:two] stringByAppendingString:@"."] stringByAppendingString:three];
                             }
@@ -1022,11 +1102,11 @@
                     break;
                     
                 case 0x02: {
-//                    Byte hardwareID = resultByte[3];
-//                     [NSString stringWithFormat:@"设定通信ID:%@",hardwareID == 0x00 ? @"成功":@"失败"];
+                    //                    Byte hardwareID = resultByte[3];
+                    //                     [NSString stringWithFormat:@"设定通信ID:%@",hardwareID == 0x00 ? @"成功":@"失败"];
                 }
                     break;
-
+                    
                 case 0x04: { //添加子机 原来resultByte[3]
                     NSString *tips;
                     BOOL success = NO;
@@ -1068,89 +1148,89 @@
                         void(^dataDellCodeBlock)(void) = ^(void){
                             NSLog(@"%@",data);
                             Byte byte1 = resultByte[i * 2 + start];
-                             Byte byte2 = resultByte[i * 2 + 1 + start];
+                            Byte byte2 = resultByte[i * 2 + 1 + start];
                             
-                             if (byte1 == 0xFF && byte2 == 0xFF) {
-                                 // 未绑定
-                             } else if (byte1 == 0xff && byte2 == 0x0E) {
-                                 // 已绑定，但未打开测距
-                                 for (LxmDeviceModel *model in self.serverDeviceArr) {
-                                     if ([model.communication isEqualToString:ID]) {
-                                         NSLog(@"上报%@",model.distance);
-                                         if (model.distance.intValue != -2 && model.isRealTime.intValue != 2) {
-                                             model.isRealTime = @"2";
-                                             NSLog(@"上报");
-                                             [self sendCeJuSwitchChangeNotiForTongXinId1];
-                                         }
-                                         break;
-                                     }
-                                 }
-                             } else if (byte1 == 0xff && byte2 == 0xFD) {
-                                 // 已绑定，但设备已经掉线 需要报警
-                                 CBPeripheral *p = [self peripheralWithTongXinId:ID];
-                                 for (LxmDeviceModel *model in self.serverDeviceArr) {
-                                     if ([model.communication isEqualToString:ID]) {
-                                         p.distance = @"-1";
-                                         model.distance = @(-1);
-                                         [LxmEventBus sendEvent:@"playSound" data:nil];
-                                         if (p.state == CBPeripheralStateConnected) {
-                                             [self nowCheckPowerForPer:p];
-                                         }
-                                         break;
-                                     }
-                                 }
-                             } else {
-                                 NSString *subStr = [hexString substringWithRange:NSMakeRange(6, 32)];
-                                 if ([subStr isEqualToString:@"f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2"]) {
-                                     LxmBLEManager.shareManager.master.powerStatus = @2;
-                                 } else if ([subStr isEqualToString:@"f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3"]) {
-                                     LxmBLEManager.shareManager.master.powerStatus = @3;
-                                 } else if ([subStr isEqualToString:@"f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4"]) {
-                                     LxmBLEManager.shareManager.master.powerStatus = @4;
-                                 } else {
-                                     //正常情况
-                                     LxmBLEManager.shareManager.master.powerStatus = @0;
-                                     char bytes[]={byte1,byte2};
-                                     unsigned char by1 = (bytes[0] &0xff);//高8位
-                                     unsigned char by2 = (bytes[1] &0xff);//低8位
+                            if (byte1 == 0xFF && byte2 == 0xFF) {
+                                // 未绑定
+                            } else if (byte1 == 0xff && byte2 == 0x0E) {
+                                // 已绑定，但未打开测距
+                                for (LxmDeviceModel *model in self.serverDeviceArr) {
+                                    if ([model.communication isEqualToString:ID]) {
+                                        NSLog(@"上报%@",model.distance);
+                                        if (model.distance.intValue != -2 && model.isRealTime.intValue != 2) {
+                                            model.isRealTime = @"2";
+                                            NSLog(@"上报");
+                                            [self sendCeJuSwitchChangeNotiForTongXinId1];
+                                        }
+                                        break;
+                                    }
+                                }
+                            } else if (byte1 == 0xff && byte2 == 0xFD) {
+                                // 已绑定，但设备已经掉线 需要报警
+                                CBPeripheral *p = [self peripheralWithTongXinId:ID];
+                                for (LxmDeviceModel *model in self.serverDeviceArr) {
+                                    if ([model.communication isEqualToString:ID]) {
+                                        p.distance = @"-1";
+                                        model.distance = @(-1);
+                                        [LxmEventBus sendEvent:@"playSound" data:nil];
+                                        if (p.state == CBPeripheralStateConnected) {
+                                            [self nowCheckPowerForPer:p];
+                                        }
+                                        break;
+                                    }
+                                }
+                            } else {
+                                NSString *subStr = [hexString substringWithRange:NSMakeRange(6, 32)];
+                                if ([subStr isEqualToString:@"f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2"]) {
+                                    LxmBLEManager.shareManager.master.powerStatus = @2;
+                                } else if ([subStr isEqualToString:@"f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3"]) {
+                                    LxmBLEManager.shareManager.master.powerStatus = @3;
+                                } else if ([subStr isEqualToString:@"f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4"]) {
+                                    LxmBLEManager.shareManager.master.powerStatus = @4;
+                                } else {
+                                    //正常情况
+                                    LxmBLEManager.shareManager.master.powerStatus = @0;
+                                    char bytes[]={byte1,byte2};
+                                    unsigned char by1 = (bytes[0] &0xff);//高8位
+                                    unsigned char by2 = (bytes[1] &0xff);//低8位
                                     
-                                     CGFloat distance  = (by2 | (by1 << 8));
-                                     CBPeripheral *p = [self peripheralWithTongXinId:ID];
-                                     LxmDeviceModel *m = nil;
-                                     for (LxmDeviceModel *model in self.serverDeviceArr) {
-                                         m = model;
-                                         break;
-                                     }
-                                     NSLog(@"设备:%@",p);
-                                     NSLog(@"安全距离:%@",p.safeDistance);
-                                     NSLog(@"实时距离:%lf",distance);
-                                     
-                                     if (m.safeDistance.isValid) {
-                                         
-                                         if (distance > m.safeDistance.floatValue) {
-                                             if (m.safeDistance.intValue == 0) {
-                                                 
-                                             } else {
-                                                 [LxmEventBus sendEvent:@"playSound" data:nil];
-                                             }
-                                             
-                                         }
-                                         [self sendDistanceChangeNotiForTongXinId:ID distance:distance];
-                                     } else {
-                                         for (LxmDeviceModel *model in self.serverDeviceArr) {
-                                             if ([model.communication isEqualToString:ID]) {
-                                                 if (model.safeDistance.intValue != 0) {
-                                                     if (model.safeDistance.intValue < distance) {
-                                                         [LxmEventBus sendEvent:@"playSound" data:nil];
-                                                     }
-                                                 }
-                                                 break;
-                                             }
-                                         }
+                                    CGFloat distance  = (by2 | (by1 << 8));
+                                    CBPeripheral *p = [self peripheralWithTongXinId:ID];
+                                    LxmDeviceModel *m = nil;
+                                    for (LxmDeviceModel *model in self.serverDeviceArr) {
+                                        m = model;
+                                        break;
+                                    }
+                                    NSLog(@"设备:%@",p);
+                                    NSLog(@"安全距离:%@",p.safeDistance);
+                                    NSLog(@"实时距离:%lf",distance);
+                                    
+                                    if (m.safeDistance.isValid) {
+                                        
+                                        if (distance > m.safeDistance.floatValue) {
+                                            if (m.safeDistance.intValue == 0) {
+                                                
+                                            } else {
+                                                [LxmEventBus sendEvent:@"playSound" data:nil];
+                                            }
+                                            
+                                        }
                                         [self sendDistanceChangeNotiForTongXinId:ID distance:distance];
-                                     }
-                                 }
-                             }
+                                    } else {
+                                        for (LxmDeviceModel *model in self.serverDeviceArr) {
+                                            if ([model.communication isEqualToString:ID]) {
+                                                if (model.safeDistance.intValue != 0) {
+                                                    if (model.safeDistance.intValue < distance) {
+                                                        [LxmEventBus sendEvent:@"playSound" data:nil];
+                                                    }
+                                                }
+                                                break;
+                                            }
+                                        }
+                                        [self sendDistanceChangeNotiForTongXinId:ID distance:distance];
+                                    }
+                                }
+                            }
                         };
                         if (![ID isEqualToString:@"000000000000"]) {
                             if (peripheral.isYanshi) {
@@ -1163,7 +1243,7 @@
                             }
                         }
                     }
-                        
+                    
                 } break;
                     
                 case 0x07: { //设置报警类型
@@ -1228,7 +1308,7 @@
                 }
                     break;
                     
-                case 0x0A: //删除子机 oo of 主机 00 01 
+                case 0x0A: //删除子机 oo of 主机 00 01
                 {
                     Byte deleteID = resultByte[3];
                     BOOL success = NO;
@@ -1248,7 +1328,7 @@
                         peripheral.deleteSubDeviceCallback(success, tips);
                         peripheral.deleteSubDeviceCallback = nil;
                     }
-                   
+                    
                 } break;
                     
                 case 0x0B: {
@@ -1346,7 +1426,7 @@
                                     }
                                 }
                             }
-
+                            
                         }
                         
                     } else {
@@ -1384,7 +1464,7 @@
                                 break;
                             }
                         }
-                }
+                    }
                     break;
                     
                 case 0x10:{//查询步数指令， APP 发送给设备（子机或者母机）
@@ -1412,50 +1492,50 @@
                     
                 case 0x14: // 步数日期
                 case 0x15: // 距离日期
-                {
-                    Byte xuhao = resultByte[3];
-                    if (xuhao == 0x01) {
-                        NSString *date1 = [hexString substringWithRange:NSMakeRange(8, 6)];
-                        NSString *date2 = [hexString substringWithRange:NSMakeRange(14, 6)];
-                        NSString *date3 = [hexString substringWithRange:NSMakeRange(20, 6)];
-                        NSString *date4 = [hexString substringWithRange:NSMakeRange(26, 6)];
-                        NSString *date5 = [hexString substringWithRange:NSMakeRange(32, 6)];
-                        NSArray *arr = @[date1,date2,date3,date4,date5];
-                        for (int i = 0; i < 5; i++) {
-                            if (![arr[i] containsString:@"0000"]) {//无效字符串
-//                                dates[@(i).stringValue] = arr[i];
-                                if (type == 0x14) {
-                                    peripheral.stepDates[@(i).stringValue] = arr[i];
-                                } else {
-                                    peripheral.distanceDates[@(i).stringValue] = arr[i];
+                    {
+                        Byte xuhao = resultByte[3];
+                        if (xuhao == 0x01) {
+                            NSString *date1 = [hexString substringWithRange:NSMakeRange(8, 6)];
+                            NSString *date2 = [hexString substringWithRange:NSMakeRange(14, 6)];
+                            NSString *date3 = [hexString substringWithRange:NSMakeRange(20, 6)];
+                            NSString *date4 = [hexString substringWithRange:NSMakeRange(26, 6)];
+                            NSString *date5 = [hexString substringWithRange:NSMakeRange(32, 6)];
+                            NSArray *arr = @[date1,date2,date3,date4,date5];
+                            for (int i = 0; i < 5; i++) {
+                                if (![arr[i] containsString:@"0000"]) {//无效字符串
+                                    //                                dates[@(i).stringValue] = arr[i];
+                                    if (type == 0x14) {
+                                        peripheral.stepDates[@(i).stringValue] = arr[i];
+                                    } else {
+                                        peripheral.distanceDates[@(i).stringValue] = arr[i];
+                                    }
                                 }
                             }
-                        }
-                    } else if (xuhao == 0x02) {
-                        NSString *date1 = [hexString substringWithRange:NSMakeRange(8, 6)];
-                        NSString *date2 = [hexString substringWithRange:NSMakeRange(14, 6)];
-                        NSArray *arr = @[date1,date2];
-                        for (int i = 0; i < 2; i++) {
-                            if (![arr[i] containsString:@"0000"]) {//无效字符串
-//                                dates[@(i+5).stringValue] = arr[i];
-                                if (type == 0x14) {
-                                    peripheral.stepDates[@(i+5).stringValue] = arr[i];
-                                } else {
-                                    peripheral.distanceDates[@(i+5).stringValue] = arr[i];
+                        } else if (xuhao == 0x02) {
+                            NSString *date1 = [hexString substringWithRange:NSMakeRange(8, 6)];
+                            NSString *date2 = [hexString substringWithRange:NSMakeRange(14, 6)];
+                            NSArray *arr = @[date1,date2];
+                            for (int i = 0; i < 2; i++) {
+                                if (![arr[i] containsString:@"0000"]) {//无效字符串
+                                    //                                dates[@(i+5).stringValue] = arr[i];
+                                    if (type == 0x14) {
+                                        peripheral.stepDates[@(i+5).stringValue] = arr[i];
+                                    } else {
+                                        peripheral.distanceDates[@(i+5).stringValue] = arr[i];
+                                    }
                                 }
                             }
+                            if (0x14 == type) { //步数日期
+                                [peripheral runStepDatesCallback];
+                            } else {
+                                [peripheral runDistanceDatesCallback];
+                            }
                         }
-                        if (0x14 == type) { //步数日期
-                            [peripheral runStepDatesCallback];
-                        } else {
-                            [peripheral runDistanceDatesCallback];
-                        }
-                    }
-                } break;
+                    } break;
                 case 0x17: {
-//                    指令23  （主机）查询报警距离
-//（1）查询所有子机的安全距离，如果安全距离值的最高位为1。例如：高8位最高位为1时，代表这台子机的测距开关是开启状态.
-//                    （2）手环硬件上操作，设置安全距离，硬件主要主动上报新设置的安全距离。
+                    //                    指令23  （主机）查询报警距离
+                    //（1）查询所有子机的安全距离，如果安全距离值的最高位为1。例如：高8位最高位为1时，代表这台子机的测距开关是开启状态.
+                    //                    （2）手环硬件上操作，设置安全距离，硬件主要主动上报新设置的安全距离。
                     //onCharacteristicWrite: ee021700ff
                     //onCharacteristicChanged: ee11178002ffffffffffffffffffffffffffffff
                     //安全距离大于 0x8002 测距开关是开
@@ -1539,10 +1619,10 @@
                     break;
                     
                     
+                }
             }
         }
     }
- }
 }
 @end
 

@@ -14,6 +14,6 @@
 @property (nonatomic,strong)NSString * tongxunID;
 @property (nonatomic,strong)NSString * equHead;
 @property (nonatomic,strong)NSString * distance;
-
+@property(nonatomic,assign)NSInteger power;
 @property (nonatomic, strong) LxmDeviceModel *mainModel;//主设备
 @end

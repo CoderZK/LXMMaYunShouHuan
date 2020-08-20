@@ -59,6 +59,8 @@
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
     }];
+    
+    
 }
 
 - (void)viewDidLoad {
@@ -73,6 +75,10 @@
     _bgImgView.contentMode = UIViewContentModeScaleAspectFill;
     _bgImgView.clipsToBounds = YES;
     [self.view addSubview:_bgImgView];
+    
+    
+    WeakObj(self);
+   
 
 //    _radarView = [[VIGRadarView alloc] initWithFrame:_bgImgView.bounds];
 //    _radarView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -95,7 +101,7 @@
     self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithCustomView:_rightbtn];
     [self loadData];
        
-    __weak typeof(self) selfWeak = self;
+   
 #pragma mark - 原来的测距逻辑
 //    [[LxmBLEManager shareManager] setDistanceChangeBlock:^(CBPeripheral *p, NSString *tongxinId,CGFloat value) {
 //        for (LxmDeviceModel *model in selfWeak.deviceArr) {

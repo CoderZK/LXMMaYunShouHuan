@@ -131,6 +131,8 @@
 		40EE77CB1F983E5E007FC537 /* LxmSetSubInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 40EE77CA1F983E5E007FC537 /* LxmSetSubInfoVC.m */; };
 		40FB53331FB923D100CE22AF /* LxmMyLocationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40FB53321FB923D100CE22AF /* LxmMyLocationView.m */; };
 		40FDA0F51FB55A5D00C92E19 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40FDA0F41FB55A5D00C92E19 /* LaunchScreen.storyboard */; };
+		587D1C9D24ECD0D800CC49C0 /* LxmShengJiSheBeiVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 587D1C9C24ECD0D800CC49C0 /* LxmShengJiSheBeiVC.m */; };
+		587D1CA024ECF2C700CC49C0 /* LxmShengJiProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 587D1C9F24ECF2C700CC49C0 /* LxmShengJiProgressView.m */; };
 		588462E124D29FB3007343D9 /* UIViewController+ChangeUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 588462E024D29FB3007343D9 /* UIViewController+ChangeUI.m */; };
 		5887FE0424EBA39900D7CD8F /* YYYY.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5887FE0324EBA39900D7CD8F /* YYYY.swift */; };
 		5887FE0A24EBC81300D7CD8F /* 5.0 son.zip in Resources */ = {isa = PBXBuildFile; fileRef = 5887FE0624EBC81200D7CD8F /* 5.0 son.zip */; };
@@ -391,6 +393,10 @@
 		40FB53321FB923D100CE22AF /* LxmMyLocationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LxmMyLocationView.m; sourceTree = "<group>"; };
 		40FDA0F41FB55A5D00C92E19 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		584FA8BC246A952F005FFD83 /* 守护鼬.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "守护鼬.entitlements"; sourceTree = "<group>"; };
+		587D1C9B24ECD0D800CC49C0 /* LxmShengJiSheBeiVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LxmShengJiSheBeiVC.h; sourceTree = "<group>"; };
+		587D1C9C24ECD0D800CC49C0 /* LxmShengJiSheBeiVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LxmShengJiSheBeiVC.m; sourceTree = "<group>"; };
+		587D1C9E24ECF2C600CC49C0 /* LxmShengJiProgressView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LxmShengJiProgressView.h; sourceTree = "<group>"; };
+		587D1C9F24ECF2C700CC49C0 /* LxmShengJiProgressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LxmShengJiProgressView.m; sourceTree = "<group>"; };
 		588462DF24D29FB3007343D9 /* UIViewController+ChangeUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ChangeUI.h"; sourceTree = "<group>"; };
 		588462E024D29FB3007343D9 /* UIViewController+ChangeUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ChangeUI.m"; sourceTree = "<group>"; };
 		5887FE0224EBA39800D7CD8F /* JawboneUP-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JawboneUP-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -766,6 +772,8 @@
 				4035413F1F96E4870044081D /* LxmTeacherInfoVC.m */,
 				403541511F97200E0044081D /* LxmSearchDeviceVC.h */,
 				403541521F97200E0044081D /* LxmSearchDeviceVC.m */,
+				587D1C9B24ECD0D800CC49C0 /* LxmShengJiSheBeiVC.h */,
+				587D1C9C24ECD0D800CC49C0 /* LxmShengJiSheBeiVC.m */,
 				5F28CBD81FAE141800CE3507 /* LxmSetMasterInfoVC.h */,
 				5F28CBD91FAE141800CE3507 /* LxmSetMasterInfoVC.m */,
 				40EE77C91F983E5E007FC537 /* LxmSetSubInfoVC.h */,
@@ -816,6 +824,8 @@
 				4054F7711FA2CAFB00E81C26 /* LxmStyleSelectCell.m */,
 				400E11241FAAE6E5007C4F1D /* LxmRegisterCellView.h */,
 				400E11251FAAE6E5007C4F1D /* LxmRegisterCellView.m */,
+				587D1C9E24ECF2C600CC49C0 /* LxmShengJiProgressView.h */,
+				587D1C9F24ECF2C700CC49C0 /* LxmShengJiProgressView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1241,6 +1251,7 @@
 				400BCDB81F8EF93700CF32AB /* TabBarController.m in Sources */,
 				400BCD8C1F8EF2EC00CF32AB /* JawboneUP.xcdatamodeld in Sources */,
 				40065D272330B9FA0032FC28 /* UIBezierPath+Zirkfied.m in Sources */,
+				587D1C9D24ECD0D800CC49C0 /* LxmShengJiSheBeiVC.m in Sources */,
 				40FB53331FB923D100CE22AF /* LxmMyLocationView.m in Sources */,
 				40065D392330B9FA0032FC28 /* ZFLabel.m in Sources */,
 				404D2AB62346274D0023D30F /* LxmSubOtherBabyCell.m in Sources */,
@@ -1267,6 +1278,7 @@
 				400BCDBB1F8EFF6F00CF32AB /* LxmTool.m in Sources */,
 				40065D342330B9FA0032FC28 /* ZFCircle.m in Sources */,
 				4083F7791FA6F1930049BE75 /* LxmDeviceInfoVC.m in Sources */,
+				587D1CA024ECF2C700CC49C0 /* LxmShengJiProgressView.m in Sources */,
 				4009DEC61FA16F8B0040D5C2 /* LxmBangDingSuccessVC.m in Sources */,
 				40065D362330B9FA0032FC28 /* ZFXAxisLine.m in Sources */,
 				404D2AB02346274D0023D30F /* LxmWeiTuoDetailVC.m in Sources */,

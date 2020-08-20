@@ -189,4 +189,15 @@
  */
 #define  user_verifyChildEqu  Base_URL"user_verifyChildEqu.do"
 
+
+/**
+  获取子机升级信息
+ */
+#define  get_child_equipment_firmware  Base_URL"get_child_equipment_firmware.do"
+
+/**
+ 获取母机升级信息
+ */
+#define  get_equipment_firmware  Base_URL"get_equipment_firmware.do"
+
 @end

@@ -15,7 +15,7 @@
 #import "LxmSetMasterInfoVC.h"
 #import "LxmSetSubInfoVC.h"
 #import "CBPeripheral+MAC.h"
-
+#import "LxmShengJiSheBeiVC.h"
 @interface LxmSearchDeviceVC ()<LxmFujinCellDelegate>
 {
     NSMutableArray<CBPeripheral *> *_mainPeripheralsArr;
@@ -24,6 +24,7 @@
 @end
 
 @implementation LxmSearchDeviceVC
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -38,13 +39,30 @@
     [LxmEventBus registerEvent:@"deviceListChanged" block:^(id data) {
          [weak_self updateArr:[LxmBLEManager shareManager].deviceList];
     }];
+    
+    //扫描到需要升级的设备, 停止扫描并进行升级处理
+    WeakObj(self);
+    [LxmEventBus registerEvent:@"shengji" block:^(NSDictionary * dict) {
+        [[LxmBLEManager shareManager] stopScan];
+        LxmShengJiSheBeiVC * vc =[[LxmShengJiSheBeiVC alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
+        vc.dataDict = dict;
+        [selfWeak.navigationController pushViewController:vc animated:YES];
+        
+    }];
+    //升级成功之后,重新启动扫描
+    [LxmEventBus registerEvent:@"sjcg" block:^(id data) {
+        [[LxmBLEManager shareManager] startScan];
+    }];
+    
+    
 }
 
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
-   
+//   [[LxmBLEManager shareManager] startScan];
     // 取消不必要的连接
     [LxmBLEManager.shareManager disConnectTempDeviceIfNeed];
     

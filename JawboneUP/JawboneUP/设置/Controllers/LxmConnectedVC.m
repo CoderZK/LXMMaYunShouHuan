@@ -183,6 +183,7 @@
         vc.userEquId = _mainDeviceModel.userEquId;
         vc.tongxunID = _mainDeviceModel.communication;
         vc.equHead = _mainDeviceModel.equHead;
+        vc.power = _mainDeviceModel.power.intValue;
         [self.navigationController pushViewController:vc animated:YES];
     }else{
         
@@ -194,6 +195,7 @@
         vc.tongxunID = model.communication;
         vc.equHead = model.equHead;
         vc.distance = model.safeDistance;
+        vc.power = model.power.intValue;
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
