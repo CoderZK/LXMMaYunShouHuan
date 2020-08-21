@@ -135,8 +135,8 @@
     _gifImgView =[[UIImageView alloc] initWithFrame:CGRectMake(ScreenW *0.5-50, ScreenH*0.5-50-64 , 100, 100)];
     NSString *path = [[NSBundle mainBundle] pathForResource:@"gifTest" ofType:@"gif"];
     NSData *data = [NSData dataWithContentsOfFile:path];
-    UIImage *image = [UIImage sd_animatedGIFWithData:data];
-    _gifImgView.image = image;
+//    UIImage *image = [UIImage sd_animatedGIFWithData:data];
+//    _gifImgView.image = image;
     _gifImgView.hidden = YES;
     [self.tableView addSubview:_gifImgView];
     

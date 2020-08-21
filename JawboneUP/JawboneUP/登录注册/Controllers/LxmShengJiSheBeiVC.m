@@ -17,6 +17,7 @@
 @property(nonatomic,strong)LxmShengJiProgressView *progressV;
 @property(nonatomic,assign)BOOL isCanback;
 @property (nonatomic, strong) DFUServiceController *dfuServiceController;
+@property(nonatomic,strong)NSString *   serverFv;
 @end
 
 @implementation LxmShengJiSheBeiVC
@@ -136,6 +137,7 @@
             
             self.fileStr = responseObject[@"result"][@"firmwareUrl"];
            NSString * firmwareNo = responseObject[@"result"][@"firmwareNo"];
+            self.serverFv = firmwareNo;
             NSArray * strings =  responseObject[@"result"][@"firmwareByteData"];
             NSUInteger c = strings.count;
             uint8_t * bytes = malloc(sizeof(*bytes) *c);
@@ -181,7 +183,8 @@
     NSError * error;
     DFUFirmware *selectedFirmware = [[DFUFirmware alloc] initWithZipFile:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.fileStr] options:(NSDataReadingMappedAlways) error:&error] type:(DFUFirmwareTypeApplication)];
 //    DFUFirmware *selectedFirmware = [[DFUFirmware alloc] initWithZipFile:self.data];
-    DFUServiceInitiator * dfuInitiator = [[DFUServiceInitiator alloc]initWithQueue: dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
+//    DFUServiceInitiator * dfuInitiator = [[DFUServiceInitiator alloc]initWithQueue: dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)];
+    DFUServiceInitiator * dfuInitiator = [[DFUServiceInitiator alloc] initWithCentralManager:[LxmBLEManager shareManager].centralManager target:self.peripheral];
     dfuInitiator = [dfuInitiator withFirmware:selectedFirmware];
     dfuInitiator.delegate = self;
     dfuInitiator.progressDelegate = self;
@@ -255,6 +258,7 @@
     }
     if (state == DFUStateCompleted) {
         [SVProgressHUD showSuccessWithStatus:@"升级完成"];
+        self.peripheral.fVersion = self.serverFv;
         [self.progressV dismiss];
         
         if (self.shengJiChengGongBlock != nil) {
