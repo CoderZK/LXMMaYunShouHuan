@@ -24,6 +24,7 @@ PODS:
   - PGDatePicker (2.6.9):
     - PGPickerView
   - PGPickerView (1.3.8)
+  - ReactiveObjC (3.1.1)
   - SDWebImage (5.8.4):
     - SDWebImage/Core (= 5.8.4)
   - SDWebImage/Core (5.8.4)
@@ -39,6 +40,7 @@ DEPENDENCIES:
   - MJExtension
   - MJRefresh
   - PGDatePicker (>= 1.4.0)
+  - ReactiveObjC
   - SDWebImage
   - SVProgressHUD-0.8.1
 
@@ -53,6 +55,7 @@ SPEC REPOS:
     - MJRefresh
     - PGDatePicker
     - PGPickerView
+    - ReactiveObjC
     - SDWebImage
     - SVProgressHUD-0.8.1
     - Zip
@@ -67,10 +70,11 @@ SPEC CHECKSUMS:
   MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
   PGDatePicker: 88960f3760edac96219c10320f25536ad31d0f44
   PGPickerView: 037acfb132a4c8054fb43aaa59a5ff50c7f747f5
+  ReactiveObjC: 011caa393aa0383245f2dcf9bf02e86b80b36040
   SDWebImage: cf6922231e95550934da2ada0f20f2becf2ceba9
   SVProgressHUD-0.8.1: ee9e6e58b5b5ffaf3f1a62c2dc409763470df143
   Zip: 8877eede3dda76bcac281225c20e71c25270774c
 
-PODFILE CHECKSUM: 57471fb4f1d91751b8b49f4dbb0157db1a5d1d9b
+PODFILE CHECKSUM: c5fcd49f4c228635eee3eb02f20c4c4a46e33a07
 
 COCOAPODS: 1.9.3

@@ -46,6 +46,7 @@
 @property (nonatomic, strong) NSMutableArray<NSString *> *yitongbuStepArr;
 @property (nonatomic, strong) NSMutableArray<NSString *> *yitongbuDistanceArr;
 @property (nonatomic, assign) BOOL isUpdate;
+@property(nonatomic,strong)NSArray *serverList;//该账号服务器的数据
 
 @end
 
@@ -105,6 +106,10 @@
         
     }];
     
+    
+ 
+    
+    
     //    //提示更新
     //    [self showUpdate];
 }
@@ -147,6 +152,11 @@
         
     }];
     
+    //收到广播
+    [LxmEventBus registerEvent:@"deviceListChanged" block:^(id data) {
+        [selfWeak chongXingTishi];
+    }];
+    
     //返回刷新数据
     [LxmEventBus registerEvent:@"load" block:^(id data) {
         [selfWeak.tableView reloadData];
@@ -187,6 +197,7 @@
                 break;
             }
         }
+        [[LxmBLEManager shareManager] openMasterCeju];
     }];
     
     //更新安全距离
@@ -378,6 +389,7 @@
             [self.deviceArr removeAllObjects];
             NSArray * arr = responseObject[@"result"][@"list"];
             NSMutableArray *tmpArr = [NSMutableArray array];
+            self.serverList = arr;
             for (NSDictionary * dict in arr) {
                 LxmDeviceModel * deviceModel = [LxmDeviceModel mj_objectWithKeyValues:dict];
                 [tmpArr addObject:deviceModel];
@@ -434,6 +446,37 @@
     }];
 }
 
+- (void)chongXingTishi {
+    NSMutableArray *tmpArr = [NSMutableArray array];
+    
+    
+    
+    for (int i = 0;i < self.deviceArr.count+1;i++) {
+        
+        LxmDeviceModel * deviceModel = nil;
+        if (i == 0 ) {
+            if (self.mainModel != nil) {
+               deviceModel = self.mainModel;
+            }
+            
+        }else {
+            deviceModel = self.deviceArr[i-1];
+        }
+        
+        CBPeripheral *p = [LxmBLEManager.shareManager peripheralWithTongXinId:deviceModel.communication];
+        deviceModel.isConnect = [LxmBLEManager.shareManager isConnectWithTongXinId:deviceModel.communication];
+        NSString * fv  = p.fVersion;
+        NSString * hv  = p.hVersion;
+        if (deviceModel.n_firmware_version.intValue != fv.intValue && fv.intValue != 0) {
+            deviceModel.isCanUp = YES;
+        }else {
+            deviceModel.isCanUp = NO;
+        }
+        
+    }
+    [self showUpdate];
+    
+}
 
 //提示更新操作
 - (void)showUpdate {

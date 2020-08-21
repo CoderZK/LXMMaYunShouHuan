@@ -13,6 +13,7 @@
 @property(nonatomic,strong)NSString *fileStr;
 @property(nonatomic,strong)UIButton  *shengJiBt ;
 @property(nonatomic,strong)UILabel *LB;
+@property(nonatomic,strong)UILabel *LBTwo;
 @property(nonatomic,strong)NSData *data;
 @property(nonatomic,strong)LxmShengJiProgressView *progressV;
 @property(nonatomic,assign)BOOL isCanback;
@@ -54,10 +55,19 @@
     
     self.navigationItem.title = [NSString stringWithFormat:@"蓝牙:%@",self.peripheral.name];
     
-    self.LB = [[UILabel alloc] initWithFrame:CGRectMake(20, 100, ScreenW - 40, 20)];
+    self.LB = [[UILabel alloc] initWithFrame:CGRectMake(20, 60, ScreenW - 40, 20)];
     [self.view addSubview:self.LB];
     self.LB.textAlignment = NSTextAlignmentCenter;
     self.LB.textColor = CharacterDarkColor;
+    
+    self.LBTwo =  [[UILabel alloc] initWithFrame:CGRectMake(20, 100, ScreenW - 40, 40)];
+    [self.view addSubview:self.LBTwo];
+    self.LBTwo.numberOfLines = 0;
+    self.LBTwo.font = [UIFont systemFontOfSize:13];
+    self.LBTwo.textAlignment = NSTextAlignmentCenter;
+    self.LBTwo.textColor = CharacterDarkColor;
+    self.LBTwo.text = @"温馨提示:升级过程中手表放置在手机旁保持蓝牙连接, 不要远离,直至升级完成";
+
     
     self.shengJiBt = [[UIButton alloc] initWithFrame:CGRectMake(20, 180, ScreenW - 40, 40)];
     [self.shengJiBt setTitle:@"升级" forState:UIControlStateNormal];
@@ -72,9 +82,6 @@
     
     
     [[LxmBLEManager shareManager] connectPeripheral:self.peripheral];;
-    
-    
-    
     
 }
 
@@ -193,6 +200,8 @@
     dfuInitiator.enableUnsafeExperimentalButtonlessServiceInSecureDfu = YES;
     self.dfuServiceController = [[dfuInitiator withFirmware:selectedFirmware] startWithTarget:self.peripheral];
      [self.progressV show];
+    
+    [[LxmBLEManager shareManager] closeMasterCeju];;
 }
 
 
@@ -258,6 +267,7 @@
     }
     if (state == DFUStateCompleted) {
         [SVProgressHUD showSuccessWithStatus:@"升级完成"];
+         
         self.peripheral.fVersion = self.serverFv;
         [self.progressV dismiss];
         
@@ -267,6 +277,7 @@
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
              [self.navigationController popViewControllerAnimated:YES];
             [LxmEventBus sendEvent:@"sjcg" data:nil];
+       
         });
     }
     

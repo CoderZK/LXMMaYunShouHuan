@@ -428,7 +428,7 @@
             UIAlertController *controller1 = [UIAlertController alertControllerWithTitle:nil message:@"设置安全距离" preferredStyle:UIAlertControllerStyleAlert];
             [controller1 addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
                 textField.keyboardType = UIKeyboardTypeNumberPad;
-                textField.placeholder = @"请输入0m~300m之间的数值";
+                textField.placeholder = @"请输入0m~50m之间的数值";
             }];
             [controller1 addAction:[UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 if (!self.isConnectWork) {
@@ -436,8 +436,8 @@
                     return;
                 }
                 UITextField *tf = controller1.textFields.firstObject;
-                if (tf.text.intValue < 0 || tf.text.intValue > 300) {
-                    [SVProgressHUD showErrorWithStatus:@"请输入0m~300m之间的数值!"];
+                if (tf.text.intValue < 0 || tf.text.intValue > 50) {
+                    [SVProgressHUD showErrorWithStatus:@"请输入0m~50m之间的数值!"];
                     return;
                 }
                 CBPeripheral *subDevice = [LxmBLEManager.shareManager peripheralWithTongXinId:self.tongxunID];

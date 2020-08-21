@@ -26,7 +26,7 @@
 #import "Masonry.h"
 #import "LxmJiaZhangModel.h"
 #import "LxmEventBus.h"
-
+#import <ReactiveObjC.h>
 #import <iOSDFULibrary-Swift.h>
 
 #define kDevice_Is_iPhoneX \

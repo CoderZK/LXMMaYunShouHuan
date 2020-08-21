@@ -138,10 +138,14 @@
         cell.imageView.image = [UIImage imageNamed:@"ico_shezhi"];
         cell.textLabel.text = @"系统设置";
     }
+    cell.clipsToBounds = YES;
     return cell;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.row == 1) {
+        return 0;
+    }
     return 50;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

@@ -13,7 +13,7 @@
 
 #import "LxmBLEManager.h"
 
-@interface LxmModifyDeviceInforVC ()<UIActionSheetDelegate,UIImagePickerControllerDelegate>
+@interface LxmModifyDeviceInforVC ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UITextFieldDelegate>
 {
     UIImageView * _headerImgView ;
     UILabel * _titleLab;
@@ -31,8 +31,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFiledEditChanged:)
-    name:UITextFieldTextDidChangeNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFiledEditChanged:)
+//    name:UITextFieldTextDidChangeNotification object:nil];
     self.navigationItem.title  = @"修改资料";
     
     UIView * headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenW, 351 + 50)];
@@ -66,6 +66,8 @@
     _nickNameView.leftLab.text = @"设备昵称";
     _nickNameView.rightTF.placeholder = @"请输入设备昵称";
     _nickNameView.rightTF.text = self.model.nickname;
+    _nickNameView.rightTF.delegate = self;
+    _nickNameView.rightTF.tag = 100;
     [headerView addSubview:_nickNameView];
     
     
@@ -80,6 +82,8 @@
         _phoneView.leftLab.text = @"紧急电话";
         _phoneView.rightTF.placeholder = @"请输入紧急电话";
         _phoneView.rightTF.keyboardType = UIKeyboardTypeNumberPad;
+        _phoneView.rightTF.delegate = self;
+        _phoneView.rightTF.tag = 101;
         [self.tableView addSubview:_phoneView];
         
         bgView.frame = CGRectMake(0, 320, ScreenW, 54);
@@ -98,17 +102,40 @@
     
 }
 
-- (void)textFiledEditChanged:(id)notification {
-    UITextRange *selectedRange = _nickNameView.rightTF.markedTextRange;
-    //过滤非汉字字符
-    UITextPosition *position = [_nickNameView.rightTF positionFromPosition:selectedRange.start offset:0];
-    if (!position) {
-        _nickNameView.rightTF.text = [self filterCharactor:_nickNameView.rightTF.text withRegex:@"[^\u4e00-\u9fa5]"];
-        if (_nickNameView.rightTF.text.length >= 2) {
-            _nickNameView.rightTF.text = [_nickNameView.rightTF.text substringToIndex:2];
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+
+    NSString *newString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    NSInteger length = [newString charactorNumber];//转换过的长度
+    NSLog(@"%@------长度: %ld",newString,length);
+
+    if (textField.tag == 100) {
+        if (length >4) {
+            return NO;
+        }else {
+            return YES;
+        }
+    }else if (textField.tag == 101) {
+        if (length > 11) {
+            return NO;
+        }else {
+            return YES;
         }
     }
+    return YES;
 }
+
+//- (void)textFiledEditChanged:(id)notification {
+//    UITextRange *selectedRange = _nickNameView.rightTF.markedTextRange;
+//    //过滤非汉字字符
+//    UITextPosition *position = [_nickNameView.rightTF positionFromPosition:selectedRange.start offset:0];
+//    if (!position) {
+//        _nickNameView.rightTF.text = [self filterCharactor:_nickNameView.rightTF.text withRegex:@"[^\u4e00-\u9fa5]"];
+//        if (_nickNameView.rightTF.text.length >= 2) {
+//            _nickNameView.rightTF.text = [_nickNameView.rightTF.text substringToIndex:2];
+//        }
+//    }
+//}
 
 //根据正则，过滤特殊字符
 - (NSString *)filterCharactor:(NSString *)string withRegex:(NSString *)regexStr{
