@@ -68,6 +68,8 @@ static LxmTool * __tool = nil;
     return [[NSUserDefaults standardUserDefaults] objectForKey:@"session_token"];
 }
 
+
+
 -(void)setHasPerfect:(NSString *)hasPerfect {
     [[NSUserDefaults standardUserDefaults] setObject:hasPerfect forKey:@"hasPerfect"];
     [[NSUserDefaults standardUserDefaults] synchronize];

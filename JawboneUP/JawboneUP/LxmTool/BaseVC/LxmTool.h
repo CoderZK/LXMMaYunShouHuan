@@ -29,4 +29,5 @@
 -(void)uploadDeviceToken;
 - (void)loadMsgInfoData;
 
+
 @end

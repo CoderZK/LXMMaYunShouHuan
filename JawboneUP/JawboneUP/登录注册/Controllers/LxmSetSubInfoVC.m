@@ -97,7 +97,7 @@
     _phoneView.leftLab.text = @"紧急电话";
     _phoneView.rightTF.placeholder = @"请输入紧急电话";
     _phoneView.rightTF.delegate = self;
-    _phoneView.rightTF.tag = 100;
+    _phoneView.rightTF.tag = 101;
     _phoneView.rightTF.keyboardType = UIKeyboardTypeNumberPad;
     [self.tableView addSubview:_phoneView];
     

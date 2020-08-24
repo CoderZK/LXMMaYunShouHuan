@@ -12,6 +12,8 @@
 #import "LxmEventBus.h"
 #import "AudioToolbox/AudioToolbox.h"
 #import "LxmBLEManager+Tongbu.h"
+static dispatch_once_t onceToken;
+static LxmBLEManager *manager = nil;
 @interface LxmBLEManager ()<CBCentralManagerDelegate,CBPeripheralDelegate> {
     NSMutableArray<CBPeripheral *> *_devices;
     
@@ -36,12 +38,26 @@
 @implementation LxmBLEManager
 
 + (instancetype)shareManager {
-    static LxmBLEManager *manager = nil;
-    static dispatch_once_t onceToken;
+    
+
     dispatch_once(&onceToken, ^{
         manager = [LxmBLEManager new];
     });
     return manager;
+}
+
++(void)attempDealloc{
+    
+    for (int i = 0 ; i < manager.deviceList.count; i++) {
+        [manager disConnectPeripheral:manager.deviceList[i]];
+    }
+    
+    manager.serverDeviceArr = nil;
+    manager.deviceList = nil;
+    manager.yitongbuStepArr = nil;
+    manager.yitongbuDistanceArr = nil;
+   onceToken = 0; // 只有置成0,GCD才会认为它从未执行过.它默认为0.这样才能保证下次再次调用shareInstance的时候,再次创建对象.
+   manager = nil;
 }
 
 //电量2分钟查询一次 计步10分钟查询一次
@@ -212,6 +228,12 @@
         }
     }
 }
+
+//- (void)setServerDeviceArr:(NSArray<LxmDeviceModel *> *)serverDeviceArr {
+//    _serverDeviceArr = serverDeviceArr;
+//    [self connectServerDeviceIfNeed];
+//}
+
 
 - (void)disConnectTempDeviceIfNeed {
     NSArray *array = [self.deviceList copy];
@@ -628,6 +650,8 @@
     if (fff6) {
         _openOrCloseCallBack = completed;
         NSData *data = [LxmDataManager openOrClose:isOpen tongxinId:tongxinID];
+        NSLog(@"\\n === 响应 %@",data);
+
         [p writeValue:data forCharacteristic:fff6 type:CBCharacteristicWriteWithoutResponse];
     } else {
         if (completed) {
@@ -694,7 +718,9 @@
 #pragma mark - 蓝牙搜索
 - (void)startScan {
     if (self.centralManager != nil) {
+//        self.deviceList = @[];
         [self.centralManager scanForPeripheralsWithServices:@[[CBUUID UUIDWithString:@"FFF0"],[CBUUID UUIDWithString:@"FE59"]] options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@(YES)}];
+        
     }
 }
 
@@ -770,6 +796,14 @@
             break;
     }
 }
+- (void)centralManager:(CBCentralManager *)central willRestoreState:(NSDictionary<NSString *, id> *)dict {
+    
+    NSLog(@"\n===%@",@"99999999999999999999");
+
+    
+    
+}
+
 
 //发现外设
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary<NSString *, id> *)advertisementData RSSI:(NSNumber *)RSSI {
@@ -865,6 +899,18 @@
 //    }
 }
 
+- (void)centralManager:(CBCentralManager *)central connectionEventDidOccur:(CBConnectionEvent)event forPeripheral:(CBPeripheral *)peripheral {
+    
+    NSLog(@"\n ===== %@",@"888888888888888888");
+
+    
+}
+
+- (void)centralManager:(CBCentralManager *)central didUpdateANCSAuthorizationForPeripheral:(CBPeripheral *)peripheral {
+   NSLog(@"\n ===== %@",@"7777777777777777");
+    
+}
+
 //连接成功
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
     peripheral.delegate = self;
@@ -953,7 +999,7 @@
     
     Byte *resultByte = (Byte *)[data bytes];
     
-    NSLog(@"datashi%@",data);
+//    NSLog(@"datashi%@",data);
     if (data.length > 4) {
         Byte header = resultByte[0];
         if (header == 0x14) { // 查询指定时间的步数

@@ -9,6 +9,7 @@
 #import "LxmShengJiSheBeiVC.h"
 #import "LxmBLEManager.h"
 #import "LxmShengJiProgressView.h"
+#import "TabBarController.h"
 @interface LxmShengJiSheBeiVC ()<DFUServiceDelegate,DFUProgressDelegate,LoggerDelegate>
 @property(nonatomic,strong)NSString *fileStr;
 @property(nonatomic,strong)UIButton  *shengJiBt ;
@@ -36,19 +37,19 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [[LxmBLEManager shareManager] startScan];
+    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     if  (self.isZhengChang) {
-       
+        
     }else {
         self.peripheral = self.dataDict[@"per"];
         self.type = self.dataDict[@"type"];
         self.noStr = self.dataDict[@"no"];
-    
+        
         
     }
     [self getData];
@@ -67,7 +68,7 @@
     self.LBTwo.textAlignment = NSTextAlignmentCenter;
     self.LBTwo.textColor = CharacterDarkColor;
     self.LBTwo.text = @"温馨提示:升级过程中手表放置在手机旁保持蓝牙连接, 不要远离,直至升级完成";
-
+    
     
     self.shengJiBt = [[UIButton alloc] initWithFrame:CGRectMake(20, 180, ScreenW - 40, 40)];
     [self.shengJiBt setTitle:@"升级" forState:UIControlStateNormal];
@@ -134,7 +135,7 @@
         url = get_equipment_firmware;
         
     }else {
-       url = get_child_equipment_firmware;
+        url = get_child_equipment_firmware;
     }
     NSMutableDictionary * dict = @{}.mutableCopy;
     dict[@"versionNo"] = [NSString stringWithFormat:@"%d",self.noStr.intValue];
@@ -143,7 +144,7 @@
             [SVProgressHUD dismiss];
             
             self.fileStr = responseObject[@"result"][@"firmwareUrl"];
-           NSString * firmwareNo = responseObject[@"result"][@"firmwareNo"];
+            NSString * firmwareNo = responseObject[@"result"][@"firmwareNo"];
             self.serverFv = firmwareNo;
             NSArray * strings =  responseObject[@"result"][@"firmwareByteData"];
             NSUInteger c = strings.count;
@@ -160,7 +161,7 @@
                     self.LB.text = [NSString stringWithFormat:@"已经是最新版本V%@",firmwareNo];
                     self.shengJiBt.hidden = YES;
                 }else {
-                   self.LB.text = [NSString stringWithFormat:@"最新版本V%@",firmwareNo];
+                    self.LB.text = [NSString stringWithFormat:@"最新版本V%@",firmwareNo];
                     self.shengJiBt.hidden = NO;
                 }
             }else {
@@ -185,23 +186,92 @@
 
 - (void)shengJiAction {
     [SVProgressHUD show];
-    self.isCanback = NO;
-//        NSString * path  = [[NSBundle mainBundle] pathForResource:@"8.0mom" ofType:@".zip"];
-    NSError * error;
-    DFUFirmware *selectedFirmware = [[DFUFirmware alloc] initWithZipFile:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.fileStr] options:(NSDataReadingMappedAlways) error:&error] type:(DFUFirmwareTypeApplication)];
-//    DFUFirmware *selectedFirmware = [[DFUFirmware alloc] initWithZipFile:self.data];
-//    DFUServiceInitiator * dfuInitiator = [[DFUServiceInitiator alloc]initWithQueue: dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)];
-    DFUServiceInitiator * dfuInitiator = [[DFUServiceInitiator alloc] initWithCentralManager:[LxmBLEManager shareManager].centralManager target:self.peripheral];
-    dfuInitiator = [dfuInitiator withFirmware:selectedFirmware];
-    dfuInitiator.delegate = self;
-    dfuInitiator.progressDelegate = self;
-    dfuInitiator.logger = self;
-    dfuInitiator.alternativeAdvertisingNameEnabled = NO;
-    dfuInitiator.enableUnsafeExperimentalButtonlessServiceInSecureDfu = YES;
-    self.dfuServiceController = [[dfuInitiator withFirmware:selectedFirmware] startWithTarget:self.peripheral];
-     [self.progressV show];
     
-    [[LxmBLEManager shareManager] closeMasterCeju];;
+    //
+    
+    
+    
+    
+//    [[LxmBLEManager shareManager] closeMasterCeju];
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        self.isCanback = NO;
+//        //        NSString * path  = [[NSBundle mainBundle] pathForResource:@"8.0mom" ofType:@".zip"];
+//        NSError * error;
+//        DFUFirmware *selectedFirmware = [[DFUFirmware alloc] initWithZipFile:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.fileStr] options:(NSDataReadingMappedAlways) error:&error] type:(DFUFirmwareTypeApplication)];
+//        //    DFUFirmware *selectedFirmware = [[DFUFirmware alloc] initWithZipFile:self.data];
+//        //    DFUServiceInitiator * dfuInitiator = [[DFUServiceInitiator alloc]initWithQueue: dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)];
+//        DFUServiceInitiator * dfuInitiator = [[DFUServiceInitiator alloc] initWithCentralManager:[LxmBLEManager shareManager].centralManager target:self.peripheral];
+//        dfuInitiator = [dfuInitiator withFirmware:selectedFirmware];
+//        dfuInitiator.delegate = self;
+//        dfuInitiator.progressDelegate = self;
+//        dfuInitiator.logger = self;
+//        dfuInitiator.alternativeAdvertisingNameEnabled = NO;
+//        dfuInitiator.enableUnsafeExperimentalButtonlessServiceInSecureDfu = YES;
+//        self.dfuServiceController = [[dfuInitiator withFirmware:selectedFirmware] startWithTarget:self.peripheral];
+//        [self.progressV show];
+//    });
+    
+  
+ CBPeripheral * mainPerpheral = [LxmBLEManager shareManager].mainPeripheral;
+//    NSArray<CBPeripheral *>*arr = [[LxmBLEManager shareManager] deviceList];
+//    for (CBPeripheral * perPheral  in arr) {
+//        [[LxmBLEManager shareManager] checkIsMaster:perPheral completed:^(BOOL success, BOOL isMaster) {
+//            if (isMaster) {
+//                mainPerpheral = perPheral;
+//            }
+//        }];
+//    }
+    
+    [LxmEventBus sendEvent:@"kssj" data:nil];
+    if (self.isZhengChang) {
+
+     
+        
+
+        [LxmBLEManager.shareManager openOrCloseRealDistance:NO peripheral:[LxmBLEManager shareManager].master communication:nil completed:^(BOOL success, BOOL isOpen) {
+            if (success || isOpen == NO) {
+
+                self.isCanback = NO;
+                //        NSString * path  = [[NSBundle mainBundle] pathForResource:@"8.0mom" ofType:@".zip"];
+                NSError * error;
+                DFUFirmware *selectedFirmware = [[DFUFirmware alloc] initWithZipFile:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.fileStr] options:(NSDataReadingMappedAlways) error:&error] type:(DFUFirmwareTypeApplication)];
+                //    DFUFirmware *selectedFirmware = [[DFUFirmware alloc] initWithZipFile:self.data];
+                //    DFUServiceInitiator * dfuInitiator = [[DFUServiceInitiator alloc]initWithQueue: dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)];
+                DFUServiceInitiator * dfuInitiator = [[DFUServiceInitiator alloc] initWithCentralManager:[LxmBLEManager shareManager].centralManager target:self.peripheral];
+                dfuInitiator = [dfuInitiator withFirmware:selectedFirmware];
+                dfuInitiator.delegate = self;
+                dfuInitiator.progressDelegate = self;
+                dfuInitiator.logger = self;
+                dfuInitiator.alternativeAdvertisingNameEnabled = NO;
+                dfuInitiator.enableUnsafeExperimentalButtonlessServiceInSecureDfu = YES;
+                self.dfuServiceController = [[dfuInitiator withFirmware:selectedFirmware] startWithTarget:self.peripheral];
+                [self.progressV show];
+
+
+            }else {
+                [SVProgressHUD showErrorWithStatus:@"失败,请重试"];
+            }
+        }];
+    }else {
+        self.isCanback = NO;
+        //        NSString * path  = [[NSBundle mainBundle] pathForResource:@"8.0mom" ofType:@".zip"];
+        NSError * error;
+        DFUFirmware *selectedFirmware = [[DFUFirmware alloc] initWithZipFile:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.fileStr] options:(NSDataReadingMappedAlways) error:&error] type:(DFUFirmwareTypeApplication)];
+        //    DFUFirmware *selectedFirmware = [[DFUFirmware alloc] initWithZipFile:self.data];
+        //    DFUServiceInitiator * dfuInitiator = [[DFUServiceInitiator alloc]initWithQueue: dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)];
+        DFUServiceInitiator * dfuInitiator = [[DFUServiceInitiator alloc] initWithCentralManager:[LxmBLEManager shareManager].centralManager target:self.peripheral];
+        dfuInitiator = [dfuInitiator withFirmware:selectedFirmware];
+        dfuInitiator.delegate = self;
+        dfuInitiator.progressDelegate = self;
+        dfuInitiator.logger = self;
+        dfuInitiator.alternativeAdvertisingNameEnabled = NO;
+        dfuInitiator.enableUnsafeExperimentalButtonlessServiceInSecureDfu = YES;
+        self.dfuServiceController = [[dfuInitiator withFirmware:selectedFirmware] startWithTarget:self.peripheral];
+        [self.progressV show];
+    }
+    
+    
+    
 }
 
 
@@ -210,7 +280,7 @@
 - (void)dfuProgressDidChangeFor:(NSInteger)part outOf:(NSInteger)totalParts to:(NSInteger)progress currentSpeedBytesPerSecond:(double)currentSpeedBytesPerSecond avgSpeedBytesPerSecond:(double)avgSpeedBytesPerSecond {
     NSLog(@"\n\n\n %d",progress);
     [SVProgressHUD dismiss];
-   
+    
     self.progressV.prog = progress;
     
     NSLog(@"%@",@"123");
@@ -230,9 +300,9 @@
 }
 
 - (void)logWith:(enum LogLevel)level message:(NSString *)message {
-//    [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"log =%ld--%@",(long)level,message]];
-//
-//    [self.progressV dismiss];
+    //    [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"log =%ld--%@",(long)level,message]];
+    //
+    //    [self.progressV dismiss];
     
     NSLog(@"\n\nmessage =yyyyy==== %@",message);
     
@@ -245,14 +315,14 @@
     NSLog(@"%d",state);
     
     
-//    case connecting
-//    case starting
-//    case enablingDfuMode
-//    case uploading
-//    case validating
-//    case disconnecting
-//    case completed
-//    case aborted
+    //    case connecting
+    //    case starting
+    //    case enablingDfuMode
+    //    case uploading
+    //    case validating
+    //    case disconnecting
+    //    case completed
+    //    case aborted
     
     
     if (state == DFUStateConnecting) {
@@ -267,17 +337,29 @@
     }
     if (state == DFUStateCompleted) {
         [SVProgressHUD showSuccessWithStatus:@"升级完成"];
-         
+        
         self.peripheral.fVersion = self.serverFv;
         [self.progressV dismiss];
         
         if (self.shengJiChengGongBlock != nil) {
             self.shengJiChengGongBlock();
         }
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-             [self.navigationController popViewControllerAnimated:YES];
-            [LxmEventBus sendEvent:@"sjcg" data:nil];
-       
+         [LxmBLEManager attempDealloc];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+//            [self.navigationController popViewControllerAnimated:YES];
+//            [LxmEventBus sendEvent:@"sjcg" data:self.peripheral];
+           
+            
+            if (self.isComeHome) {
+                TabBarController *BarVC=[[TabBarController alloc] init];
+                [UIApplication sharedApplication].delegate.window.rootViewController = BarVC;
+            }else {
+                [self.navigationController popViewControllerAnimated:YES];
+                [LxmEventBus sendEvent:@"sjcg" data:self.peripheral];
+            }
+            
+            
         });
     }
     

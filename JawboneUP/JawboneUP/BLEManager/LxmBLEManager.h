@@ -38,9 +38,10 @@ typedef void(^setSubPeripheralPhoneCallBack)(BOOL success, NSString *tips);
 - (void)disConnectTempDeviceIfNeed; // 断开非服务器的其他设备 第一次连接 不要断开主设备
 
 + (instancetype)shareManager;
++(void)attempDealloc;
 //外设列表
 @property (nonatomic, copy) NSArray<CBPeripheral *> *deviceList;
-
+@property(nonatomic,strong)CBPeripheral *mainPeripheral;
 
 /** 根据通信Id获取 设备 */
 - (CBPeripheral *)peripheralWithTongXinId:(NSString *)tongXinId;

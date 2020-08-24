@@ -47,6 +47,7 @@
 @property (nonatomic, strong) NSMutableArray<NSString *> *yitongbuDistanceArr;
 @property (nonatomic, assign) BOOL isUpdate;
 @property(nonatomic,strong)NSArray *serverList;//该账号服务器的数据
+@property(nonatomic,strong)CBPeripheral *selectP;
 
 @end
 
@@ -106,8 +107,9 @@
         
     }];
     
-    
+    [[LxmBLEManager shareManager] startScan];
  
+    [self loadData];
     
     
     //    //提示更新
@@ -147,20 +149,30 @@
         
     }];
     
-    [LxmEventBus registerEvent:@"sjcg" block:^(id data) {
+    [LxmEventBus registerEvent:@"sjcg" block:^(CBPeripheral * data) {
+        
         [[LxmBLEManager shareManager] startScan];
         
+        [selfWeak loadData];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [[LxmBLEManager shareManager] connectPeripheral:data];
+        });
+
+        
     }];
+    
+    [LxmEventBus registerEvent:@"kssj" block:^(CBPeripheral * data) {
+        for (LxmDeviceModel * model  in self.deviceArr) {
+            [selfWeak colseAllwtih:model];
+        }
+      }];
     
     //收到广播
     [LxmEventBus registerEvent:@"deviceListChanged" block:^(id data) {
         [selfWeak chongXingTishi];
     }];
     
-    //返回刷新数据
-    [LxmEventBus registerEvent:@"load" block:^(id data) {
-        [selfWeak.tableView reloadData];
-    }];
+
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [selfWeak loadData];
@@ -178,9 +190,11 @@
             if ([device.communication isEqualToString:tongxinId]) {
                 device.distance = @(-1);
                 [selfWeak reloadTableViewIfNeed];
+//                [selfWeak.tableView reloadData];
                 break;
             }
         }
+  
     }];
     
     
@@ -194,10 +208,11 @@
             if ([device.communication isEqualToString:tongxinId]) {
                 device.isConnect = isConnected;
                 [selfWeak reloadTableViewIfNeed];
+//                [selfWeak.tableView reloadData];
                 break;
             }
         }
-        [[LxmBLEManager shareManager] openMasterCeju];
+        [[LxmBLEManager shareManager] openOrCloseRealDistance:YES peripheral:[LxmBLEManager shareManager].mainPeripheral communication:nil completed:nil];
     }];
     
     //更新安全距离
@@ -349,6 +364,25 @@
     
 }
 
+//关闭所有子机测距
+- (void)colseAllwtih:(LxmDeviceModel *)model {
+    
+    CBPeripheral * p = [[LxmBLEManager shareManager] peripheralWithTongXinId:model.communication];;
+//    
+    if (model.isRealTime.intValue == 1) {
+    //准备关上 关  只需要发给主机带上子机的通信id
+              p.isYanshi = YES;
+              p.isRealTime = @"2";
+              model.isRealTime = @"2";
+              model.distance = @(-2);
+              [self updateDevice:model info:@{@"isRealTime":@"2"} completed:^(BOOL success) {
+
+              }];
+
+        
+    }
+    
+}
 
 - (NSArray *)allDevice {
     NSMutableArray *arr = [NSMutableArray array];
@@ -411,6 +445,7 @@
                 if (deviceModel.type.intValue == 1) {//主机
                     LxmBLEManager.shareManager.masterTongXinId = deviceModel.communication;
                     selfWeak.mainModel = deviceModel;
+                    [LxmBLEManager shareManager].mainPeripheral = p;
                 } else {//子机
                     [_deviceArr addObject:deviceModel];
                 }
@@ -505,12 +540,13 @@
                     vc.firmwareNo = [@(peripheral.fVersion.intValue - 1) stringValue];
                     vc.peripheral = peripheral;
                     vc.type = @"1";
+                    vc.isComeHome = YES;
                     vc.isZhengChang = YES;
                     WeakObj(self);
-                    vc.shengJiChengGongBlock = ^{
-                        selfWeak.mainModel.isCanUp = NO;
-                        [selfWeak showUpdate];
-                    };
+//                    vc.shengJiChengGongBlock = ^{
+//                        selfWeak.mainModel.isCanUp = NO;
+//                        [selfWeak showUpdate];
+//                    };
                     vc.hidesBottomBarWhenPushed = YES;
                     [self.navigationController pushViewController:vc animated:YES];
                     
@@ -533,6 +569,7 @@
                 [alertcontroller addAction:[UIAlertAction actionWithTitle:@"更新" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     
                     CBPeripheral * peripheral = [[LxmBLEManager shareManager] peripheralWithTongXinId:self.deviceArr[i-1].communication];
+                    self.selectP = peripheral;
                     NSString * fv = peripheral.fVersion;
                     NSString * hv = peripheral.hVersion;
                     if (peripheral == nil) {
@@ -547,11 +584,12 @@
                     vc.hidesBottomBarWhenPushed = YES;
                     vc.type = @"2";
                     vc.isZhengChang = YES;
+                    vc.isComeHome = YES;
                     WeakObj(self);
-                    vc.shengJiChengGongBlock = ^{
-                        selfWeak.deviceArr[i-1].isCanUp = NO;
-                        [selfWeak showUpdate];
-                    };
+//                    vc.shengJiChengGongBlock = ^{
+//                        selfWeak.deviceArr[i-1].isCanUp = NO;
+//                        [selfWeak showUpdate];
+//                    };
                     [self.navigationController pushViewController:vc animated:YES];
                     
                 }]];
@@ -756,14 +794,16 @@
             [SVProgressHUD showErrorWithStatus:@"当前子机设备不在蓝牙连接范围内!"];
             return;
         }
+        CBPeripheral * pp = LxmBLEManager.shareManager.master;
         [SVProgressHUD show];
         [LxmBLEManager.shareManager openOrCloseRealDistance:YES peripheral:mainP communication:model.communication completed:^(BOOL success, BOOL isOpen) {
-            [SVProgressHUD dismiss];
+           
             CBPeripheral *p = [LxmBLEManager.shareManager peripheralWithTongXinId:model.communication];
             if (success) {//主机测距已打开
                 [LxmBLEManager.shareManager openOrCloseRealDistance:YES peripheral:p communication:nil completed:^(BOOL success, BOOL isOpen) {
-                    [SVProgressHUD dismiss];
+                    
                     if (success) {
+                        [SVProgressHUD dismiss];
                         p.isYanshi = YES;
                         p.isRealTime = @"1";
                         model.isRealTime = @"1";
@@ -780,12 +820,12 @@
                             
                         }];
                     } else {
-                        [SVProgressHUD dismiss];
+//                        [SVProgressHUD dismiss];
                         [LxmBLEManager.shareManager openOrCloseRealDistance:NO peripheral:mainP communication:model.communication completed:^(BOOL success, BOOL isOpen) {}];
                     }
                 }];
             } else {
-                [SVProgressHUD dismiss];
+                [SVProgressHUD showErrorWithStatus:@"开启失败"];
             }
         }];
     }
