@@ -33,6 +33,7 @@ typedef void(^setSubPeripheralPhoneCallBack)(BOOL success, NSString *tips);
 
 /** 服务器保存的设备 */
 @property (nonatomic, strong) NSArray <LxmDeviceModel *> *serverDeviceArr;
+@property(nonatomic,strong)NSMutableArray<CBPeripheral *>  *devices;
 
 - (void)connectServerDeviceIfNeed; // 连接服务器所有的设备
 - (void)disConnectTempDeviceIfNeed; // 断开非服务器的其他设备 第一次连接 不要断开主设备

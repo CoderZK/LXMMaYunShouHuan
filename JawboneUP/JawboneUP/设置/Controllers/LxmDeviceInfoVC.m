@@ -333,8 +333,8 @@
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 NSLog(@"%@",@"123456");
                 
-                if (periPheral.power.intValue < 5 && periPheral.power.intValue != 0) {
-                    [SVProgressHUD showErrorWithStatus:@"升级必须电量大于5%"];
+                if (periPheral.power.intValue < 25 && periPheral.power.intValue != 0) {
+                    [SVProgressHUD showErrorWithStatus:@"升级必须电量大于25%"];
                     self.tableView.userInteractionEnabled= YES;
                     return;
                 }else {
@@ -467,8 +467,8 @@
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 NSLog(@"%@",@"123456");
                 
-                if (periPheral.power.intValue < 5 && periPheral.power.intValue != 0) {
-                    [SVProgressHUD showErrorWithStatus:@"升级必须电量大于5%"];
+                if (periPheral.power.intValue < 25 && periPheral.power.intValue != 0) {
+                    [SVProgressHUD showErrorWithStatus:@"升级必须电量大于25%"];
                     self.tableView.userInteractionEnabled= YES;
                     return;
                 }else {

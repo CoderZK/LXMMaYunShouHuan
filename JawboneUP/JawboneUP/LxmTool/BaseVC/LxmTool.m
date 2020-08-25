@@ -60,6 +60,24 @@ static LxmTool * __tool = nil;
      return [[NSUserDefaults standardUserDefaults] objectForKey:@"messageID"];
 }
 
+- (void)setPerName:(NSString *)perName {
+    [[NSUserDefaults standardUserDefaults] setObject:perName forKey:@"perName"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSString *)perName {
+    return [[NSUserDefaults standardUserDefaults] objectForKey:@"perName"];;
+}
+
+- (void)setFVersion:(NSString *)fVersion {
+    [[NSUserDefaults standardUserDefaults] setObject:fVersion forKey:@"fVersion"];
+       [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSString *)fVersion {
+    return [[NSUserDefaults standardUserDefaults] objectForKey:@"fVersion"];;
+}
+
 -(void)setSession_token:(NSString *)session_token {
     [[NSUserDefaults standardUserDefaults] setObject:session_token forKey:@"session_token"];
     [[NSUserDefaults standardUserDefaults] synchronize];

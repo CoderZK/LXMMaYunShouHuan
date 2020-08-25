@@ -52,7 +52,7 @@
     }];
     //升级成功之后,重新启动扫描
     [LxmEventBus registerEvent:@"sjcg" block:^(id data) {
-        [[LxmBLEManager shareManager] startScan];
+//        [[LxmBLEManager shareManager] startScan];
     }];
     
     

@@ -281,8 +281,8 @@
                                    @"nickname":_nickNameView.rightTF.text,
                                    @"communication":tongxinId,
                                    @"safeDistance":@([_distanceView.rightTF.text intValue]),
-                                   @"hVersion":selfWeak.peripheral.hVersion ? selfWeak.peripheral.hVersion :@"",
-                                   @"fVersion":selfWeak.peripheral.fVersion ? selfWeak.peripheral.fVersion : @"",
+                                   @"hVersion":selfWeak.peripheral.hVersion ? @(selfWeak.peripheral.hVersion.intValue) :@"",
+                                   @"fVersion":selfWeak.peripheral.fVersion ? @(selfWeak.peripheral.fVersion.intValue) : @"",
                                    @"identifier":tongxinId,
                                    @"parentId":selfWeak.parentId,
                                    @"criticalTel": _phoneView.rightTF.text

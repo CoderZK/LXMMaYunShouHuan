@@ -1412,7 +1412,7 @@
 				CODE_SIGN_ENTITLEMENTS = "JawboneUP/守护鼬.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = JC4A2LS9A4;
 				GCC_PREFIX_HEADER = JawboneUP/Header.pch;
 				INFOPLIST_FILE = JawboneUP/Info.plist;
@@ -1444,7 +1444,7 @@
 				CODE_SIGN_ENTITLEMENTS = "JawboneUP/守护鼬.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = GP8MR3ZN9E;
 				GCC_PREFIX_HEADER = JawboneUP/Header.pch;
 				INFOPLIST_FILE = JawboneUP/Info.plist;

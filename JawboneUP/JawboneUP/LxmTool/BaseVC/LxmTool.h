@@ -24,6 +24,8 @@
 
 @property(nonatomic,assign)bool isClosePush;
 @property(nonatomic,assign)NSInteger messageCount;
+@property(nonatomic,strong)NSString *perName;
+@property(nonatomic,strong)NSString *fVersion;
 //推送token
 @property(nonatomic,strong)NSString * deviceToken;
 -(void)uploadDeviceToken;

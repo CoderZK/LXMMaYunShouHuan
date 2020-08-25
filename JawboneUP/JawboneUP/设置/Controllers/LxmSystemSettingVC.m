@@ -240,6 +240,8 @@
                 //跳转登录页
                 [LxmTool ShareTool].session_token = nil;
                 [LxmTool ShareTool].isLogin = NO;
+                [LxmTool ShareTool].perName = @"";
+                [LxmTool ShareTool].fVersion = @"0";
                 
                 [UIApplication sharedApplication].delegate.window.rootViewController = [[BaseNavigationController alloc] initWithRootViewController:[[LxmLoginVC alloc] init]];
             }else{

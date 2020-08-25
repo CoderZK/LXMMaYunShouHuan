@@ -107,7 +107,7 @@
         
     }];
     
-    [[LxmBLEManager shareManager] startScan];
+//    [[LxmBLEManager shareManager] startScan];
  
     [self loadData];
     
@@ -151,7 +151,7 @@
     
     [LxmEventBus registerEvent:@"sjcg" block:^(CBPeripheral * data) {
         
-        [[LxmBLEManager shareManager] startScan];
+//        [[LxmBLEManager shareManager] startScan];
         
         [selfWeak loadData];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -169,6 +169,7 @@
     
     //收到广播
     [LxmEventBus registerEvent:@"deviceListChanged" block:^(id data) {
+        NSLog(@"%@",@"chongshi");
         [selfWeak chongXingTishi];
     }];
     
@@ -432,7 +433,7 @@
                 NSString * fv  = p.fVersion;
                 NSString * hv  = p.hVersion;
                 
-                if ([dict[@"new_firmware_version"] intValue] != fv.intValue && fv.intValue != 0) {
+                if ([dict[@"new_firmware_version"] intValue] > fv.intValue && fv.intValue != 0) {
                     deviceModel.isCanUp = YES;
                 }else {
                     deviceModel.isCanUp = NO;
@@ -483,11 +484,7 @@
 
 - (void)chongXingTishi {
     NSMutableArray *tmpArr = [NSMutableArray array];
-    
-    
-    
     for (int i = 0;i < self.deviceArr.count+1;i++) {
-        
         LxmDeviceModel * deviceModel = nil;
         if (i == 0 ) {
             if (self.mainModel != nil) {
@@ -502,7 +499,7 @@
         deviceModel.isConnect = [LxmBLEManager.shareManager isConnectWithTongXinId:deviceModel.communication];
         NSString * fv  = p.fVersion;
         NSString * hv  = p.hVersion;
-        if (deviceModel.n_firmware_version.intValue != fv.intValue && fv.intValue != 0) {
+        if (deviceModel.n_firmware_version.intValue > fv.intValue && fv.intValue != 0) {
             deviceModel.isCanUp = YES;
         }else {
             deviceModel.isCanUp = NO;
@@ -521,13 +518,20 @@
             
             if (self.mainModel.isCanUp && !self.mainModel.isCancel) {
                 
+                CBPeripheral * peripheral = [[LxmBLEManager shareManager] peripheralWithTongXinId:self.mainModel.communication];
+                
+                if ([peripheral.name isEqualToString:[LxmTool ShareTool].perName]) {
+                    if (self.mainModel.n_firmware_version.intValue <= [LxmTool ShareTool].fVersion.intValue) {
+                        continue;
+                    }
+                }
                 UIAlertController * alertcontroller = [UIAlertController alertControllerWithTitle:@"提示" message:[NSString stringWithFormat:@"设备\"%@\"有新的固件可以更新,是否更新",self.mainModel.equNickname] preferredStyle:UIAlertControllerStyleAlert];
                 [alertcontroller addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                     self.mainModel.isCancel = YES;
                     [self showUpdate];
                 }]];
                 [alertcontroller addAction:[UIAlertAction actionWithTitle:@"更新" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    CBPeripheral * peripheral = [[LxmBLEManager shareManager] peripheralWithTongXinId:self.mainModel.communication];
+                    
                     NSString * fv = peripheral.fVersion;
                     NSString * hv = peripheral.hVersion;
                     if (peripheral == nil) {
@@ -543,10 +547,10 @@
                     vc.isComeHome = YES;
                     vc.isZhengChang = YES;
                     WeakObj(self);
-//                    vc.shengJiChengGongBlock = ^{
-//                        selfWeak.mainModel.isCanUp = NO;
+                    vc.shengJiChengGongBlock = ^{
+                        selfWeak.mainModel.isCanUp = NO;
 //                        [selfWeak showUpdate];
-//                    };
+                    };
                     vc.hidesBottomBarWhenPushed = YES;
                     [self.navigationController pushViewController:vc animated:YES];
                     
@@ -561,6 +565,15 @@
             
             if (self.deviceArr[i-1].isCanUp && !self.deviceArr[i-1].isCancel) {
                 
+                CBPeripheral * peripheral = [[LxmBLEManager shareManager] peripheralWithTongXinId:self.deviceArr[i-1].communication];
+             
+
+                if ([peripheral.name isEqualToString:[LxmTool ShareTool].perName]) {
+                            if (self.deviceArr[i-1].n_firmware_version.intValue <= [LxmTool ShareTool].fVersion.intValue) {
+                            continue;
+                        }
+                    }
+                
                 UIAlertController * alertcontroller = [UIAlertController alertControllerWithTitle:@"提示" message:[NSString stringWithFormat:@"设备\"%@\"有新的固件可以更新,是否更新",self.deviceArr[i-1].equNickname] preferredStyle:UIAlertControllerStyleAlert];
                 [alertcontroller addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                     self.deviceArr[i-1].isCancel = YES;
@@ -568,7 +581,7 @@
                 }]];
                 [alertcontroller addAction:[UIAlertAction actionWithTitle:@"更新" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     
-                    CBPeripheral * peripheral = [[LxmBLEManager shareManager] peripheralWithTongXinId:self.deviceArr[i-1].communication];
+                    
                     self.selectP = peripheral;
                     NSString * fv = peripheral.fVersion;
                     NSString * hv = peripheral.hVersion;
@@ -586,10 +599,10 @@
                     vc.isZhengChang = YES;
                     vc.isComeHome = YES;
                     WeakObj(self);
-//                    vc.shengJiChengGongBlock = ^{
-//                        selfWeak.deviceArr[i-1].isCanUp = NO;
+                    vc.shengJiChengGongBlock = ^{
+                        selfWeak.deviceArr[i-1].isCanUp = NO;
 //                        [selfWeak showUpdate];
-//                    };
+                    };
                     [self.navigationController pushViewController:vc animated:YES];
                     
                 }]];
@@ -1026,7 +1039,7 @@
     // 电量状态
     self.dianliangImgView.hidden = (_deviceModel.power == nil);
     self.dianlianglabel.hidden = (_deviceModel.power == nil);
-    if (_deviceModel.power.integerValue < 10) {
+    if (_deviceModel.power.integerValue < 5) {
         if (p.powerStatus.intValue == 2) {
             self.dianliangImgView.image = [UIImage imageNamed:@"01"];
         } else {

@@ -159,8 +159,8 @@
         NSMutableDictionary * dict = [NSMutableDictionary dictionary];
         [dict setValue:LxmTool.ShareTool.session_token forKey:@"token"];
         [dict setValue:_nickNameView.rightTF.text forKey:@"realname"];
-        [dict setValue:self.p.hVersion forKey:@"hVersion"];
-        [dict setValue:self.p.fVersion forKey:@"fVersion"];
+        [dict setValue:@(self.p.hVersion.intValue) forKey:@"hVersion"];
+        [dict setValue:@(self.p.fVersion.intValue) forKey:@"fVersion"];
         [dict setValue:_nickNameView.rightTF.text forKey:@"nickname"];
         [dict setValue:@"0" forKey:@"identityId"];
         WeakObj(self);

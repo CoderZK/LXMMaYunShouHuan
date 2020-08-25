@@ -14,8 +14,11 @@
 #import "LxmBLEManager+Tongbu.h"
 static dispatch_once_t onceToken;
 static LxmBLEManager *manager = nil;
-@interface LxmBLEManager ()<CBCentralManagerDelegate,CBPeripheralDelegate> {
-    NSMutableArray<CBPeripheral *> *_devices;
+
+
+@interface LxmBLEManager ()<CBCentralManagerDelegate,CBPeripheralDelegate>{
+//    NSMutableArray<CBPeripheral *> *_devices;
+    
     
     VersionCallBack _versionCallback;
     CommunicationListCallBack _tongxinIdListCallback;
@@ -42,11 +45,17 @@ static LxmBLEManager *manager = nil;
 
     dispatch_once(&onceToken, ^{
         manager = [LxmBLEManager new];
+        
+        NSLog(@"\n======alloc%@",[NSDate date]);
+        
     });
     return manager;
 }
 
 +(void)attempDealloc{
+    
+    NSLog(@"dealloc%@",[NSDate date]);
+
     
     for (int i = 0 ; i < manager.deviceList.count; i++) {
         [manager disConnectPeripheral:manager.deviceList[i]];
@@ -54,8 +63,11 @@ static LxmBLEManager *manager = nil;
     
     manager.serverDeviceArr = nil;
     manager.deviceList = nil;
-    manager.yitongbuStepArr = nil;
-    manager.yitongbuDistanceArr = nil;
+    manager.yitongbuStepArr = @[].mutableCopy;
+    manager.yitongbuDistanceArr = @[].mutableCopy;
+    manager.mainPeripheral = nil;
+    manager.devices = @[].mutableCopy;
+
    onceToken = 0; // 只有置成0,GCD才会认为它从未执行过.它默认为0.这样才能保证下次再次调用shareInstance的时候,再次创建对象.
    manager = nil;
 }
@@ -772,6 +784,8 @@ static LxmBLEManager *manager = nil;
             }
             [_devices removeAllObjects];
             self.deviceList = _devices;
+            NSLog(@"%@%@",@"deviceListChanged === 1",[NSDate date]);
+
             [LxmEventBus sendEvent:@"deviceListChanged" data:nil];
         }
             break;
@@ -788,6 +802,7 @@ static LxmBLEManager *manager = nil;
             //            [central scanForPeripheralsWithServices:nil options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@(YES)}];
             [_devices removeAllObjects];
             self.deviceList = _devices;
+            NSLog(@"%@%@",@"deviceListChanged === 2",[NSDate date]);
             [LxmEventBus sendEvent:@"deviceListChanged" data:nil];
         }
             break;
@@ -809,6 +824,11 @@ static LxmBLEManager *manager = nil;
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary<NSString *, id> *)advertisementData RSSI:(NSNumber *)RSSI {
     
     NSData *data = [advertisementData objectForKey:@"kCBAdvDataManufacturerData"];
+    
+    NSLog(@"====\n%@===%@===%@",peripheral,advertisementData,[NSDate date]);
+
+    
+    
     if (data) {
         
         NSString *dataString = [LxmDataManager hexStringFromData:data];
@@ -878,6 +898,7 @@ static LxmBLEManager *manager = nil;
                        if (![_devices containsObject:peripheral]) {
                            [_devices addObject:peripheral];
                            self.deviceList = _devices;
+                           NSLog(@"%@%@",@"deviceListChanged === 3",[NSDate date]);
                            [LxmEventBus sendEvent:@"deviceListChanged" data:nil];
                        }
                        [self connectServerDeviceIfNeed];
