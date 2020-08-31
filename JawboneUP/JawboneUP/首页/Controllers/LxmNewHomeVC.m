@@ -520,6 +520,10 @@
                 
                 CBPeripheral * peripheral = [[LxmBLEManager shareManager] peripheralWithTongXinId:self.mainModel.communication];
                 
+                NSString * str = peripheral.name;
+                 NSString * strTwo = [LxmTool ShareTool].perName;
+                
+                
                 if ([peripheral.name isEqualToString:[LxmTool ShareTool].perName]) {
                     if (self.mainModel.n_firmware_version.intValue <= [LxmTool ShareTool].fVersion.intValue) {
                         continue;
@@ -553,7 +557,7 @@
                     };
                     vc.hidesBottomBarWhenPushed = YES;
                     [self.navigationController pushViewController:vc animated:YES];
-                    
+                    return;
                 }]];
                 [self presentViewController:alertcontroller animated:YES completion:nil];
                 
@@ -566,7 +570,8 @@
             if (self.deviceArr[i-1].isCanUp && !self.deviceArr[i-1].isCancel) {
                 
                 CBPeripheral * peripheral = [[LxmBLEManager shareManager] peripheralWithTongXinId:self.deviceArr[i-1].communication];
-             
+             NSString * str = peripheral.name;
+             NSString * strTwo = [LxmTool ShareTool].perName;
 
                 if ([peripheral.name isEqualToString:[LxmTool ShareTool].perName]) {
                             if (self.deviceArr[i-1].n_firmware_version.intValue <= [LxmTool ShareTool].fVersion.intValue) {
@@ -604,7 +609,7 @@
 //                        [selfWeak showUpdate];
                     };
                     [self.navigationController pushViewController:vc animated:YES];
-                    
+                    return;
                 }]];
                 [self presentViewController:alertcontroller animated:YES completion:nil];
                 
