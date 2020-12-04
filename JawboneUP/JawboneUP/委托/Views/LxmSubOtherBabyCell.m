@@ -46,7 +46,7 @@
         self.foreverBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.nameLab.frame)+5, 12, 69, 20)];
         [self.foreverBtn setBackgroundImage:[UIImage imageNamed:@"weituo_1"] forState:UIControlStateNormal];
         self.foreverBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-        [self addSubview:self.foreverBtn];
+        [self.contentView addSubview:self.foreverBtn];
         
         
     }return self;

@@ -882,8 +882,20 @@ static LxmBLEManager *manager = nil;
                         NSString *random = [targetString substringWithRange:NSMakeRange(2, 2)];
                         NSString *power = [targetString substringWithRange:NSMakeRange(4, 2)];
                         //                NSString *isBind = [targetString substringWithRange:NSMakeRange(6, 2)];
-                        peripheral.fVersion = [targetString substringWithRange:NSMakeRange(8, 2)];
-                        peripheral.hVersion = [targetString substringWithRange:NSMakeRange(10, 2)];
+                    
+                    
+                        NSString *version = [NSString stringWithFormat:@"%ld",[LxmDataManager str16to10:[targetString substringWithRange:NSMakeRange(8, 2)]]];
+                        NSString *version1 = [NSString stringWithFormat:@"%ld",[LxmDataManager str16to10:[targetString substringWithRange:NSMakeRange(10, 2)]]];
+                    
+                        peripheral.fVersion = version;
+                        peripheral.hVersion = version1;
+                    
+//                        peripheral.fVersion = [targetString substringWithRange:NSMakeRange(8, 2)];
+//                        peripheral.hVersion = [targetString substringWithRange:NSMakeRange(10, 2)];
+                    
+                        
+                    
+                    
                         NSString *tongxinId = @"";
                         if (dataString.length >= 24) {
                              tongxinId = [targetString substringWithRange:NSMakeRange(12, 12)];
@@ -1336,8 +1348,12 @@ static LxmBLEManager *manager = nil;
                     Byte hardwareVersion = resultByte[3];
                     Byte softwareVersion = resultByte[4];
                     
-                    NSString *version = [NSString stringWithFormat:@"%hhu",hardwareVersion];
-                    NSString *version1 = [NSString stringWithFormat:@"%hhu",softwareVersion];
+//                    NSString *version = [NSString stringWithFormat:@"%hhu",hardwareVersion];
+//                    NSString *version1 = [NSString stringWithFormat:@"%hhu",softwareVersion];
+                    
+                    NSString *version = [NSString stringWithFormat:@"%ld",[LxmDataManager str16to10:[NSString stringWithFormat:@"%hhu",hardwareVersion]]];;
+                    NSString *version1 = [NSString stringWithFormat:@"%ld",[LxmDataManager str16to10:[NSString stringWithFormat:@"%hhu",softwareVersion]]]; ;
+                    
                     peripheral.hVersion = version;
                     peripheral.fVersion = version1;
                     if (_versionCallback) {

@@ -47,7 +47,7 @@
         [limitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         limitBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         [limitBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:limitBtn];
+        [self.contentView addSubview:limitBtn];
         
         UIButton * foreverBtn = [[UIButton alloc] initWithFrame:CGRectMake(ScreenW-95, 44, 80, 26)];
         [foreverBtn setBackgroundImage:[UIImage imageNamed:@"weituo_3"] forState:UIControlStateNormal];
@@ -56,7 +56,7 @@
         [foreverBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         foreverBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         [foreverBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:foreverBtn];
+        [self.contentView addSubview:foreverBtn];
         
         
     }return self;

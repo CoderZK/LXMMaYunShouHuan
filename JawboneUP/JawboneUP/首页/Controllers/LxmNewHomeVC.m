@@ -1408,25 +1408,25 @@
     if (self) {
         self.backgroundColor = UIColor.clearColor;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        [self addSubview:self.bgImgView];
-        [self addSubview:self.topView];
-        [self addSubview:self.bottomView];
+        [self.contentView addSubview:self.bgImgView];
+        [self.contentView addSubview:self.topView];
+        [self.contentView addSubview:self.bottomView];
         [self.bgImgView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self);
-            make.bottom.equalTo(self).offset(-15);
-            make.leading.equalTo(self).offset(15);
-            make.trailing.equalTo(self).offset(-15);
+            make.top.equalTo(self.contentView);
+            make.bottom.equalTo(self.contentView).offset(-15);
+            make.leading.equalTo(self.contentView).offset(15);
+            make.trailing.equalTo(self.contentView).offset(-15);
         }];
         [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self);
-            make.leading.equalTo(self).offset(15);
-            make.trailing.equalTo(self).offset(-15);
+            make.top.equalTo(self.contentView);
+            make.leading.equalTo(self.contentView).offset(15);
+            make.trailing.equalTo(self.contentView).offset(-15);
             make.height.equalTo(@80);
         }];
         [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.topView.mas_bottom);
-            make.leading.equalTo(self).offset(15);
-            make.trailing.equalTo(self).offset(-15);
+            make.leading.equalTo(self.contentView).offset(15);
+            make.trailing.equalTo(self.contentView).offset(-15);
             make.height.equalTo(@46);
         }];
         

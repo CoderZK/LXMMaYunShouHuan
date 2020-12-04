@@ -21,7 +21,7 @@
         [bandingBtn setBackgroundImage:[UIImage imageNamed:@"btn_jieshou"] forState:UIControlStateNormal];
         [bandingBtn setTitle:@"绑定" forState:UIControlStateNormal];
         [bandingBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:bandingBtn];
+        [self.contentView addSubview:bandingBtn];
         self.layer.masksToBounds = YES;
         self.clipsToBounds = YES;
         

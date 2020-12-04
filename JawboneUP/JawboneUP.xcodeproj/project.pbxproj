@@ -1414,8 +1414,8 @@
 				CODE_SIGN_ENTITLEMENTS = "JawboneUP/守护鼬.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
-				DEVELOPMENT_TEAM = GP8MR3ZN9E;
+				CURRENT_PROJECT_VERSION = 6;
+				DEVELOPMENT_TEAM = 39C8542DB6;
 				GCC_PREFIX_HEADER = JawboneUP/Header.pch;
 				INFOPLIST_FILE = JawboneUP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1424,11 +1424,11 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/JawboneUP/UMessage_Sdk_1.5.0a",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.heartcolour.JawboneUP;
 				PRODUCT_NAME = "守护鼬";
 				PROVISIONING_PROFILE = "3f2c81fa-ba6f-495e-89b1-184d107690dd";
-				PROVISIONING_PROFILE_SPECIFIER = anxinquan_dev_profile;
+				PROVISIONING_PROFILE_SPECIFIER = kkcomcom;
 				SWIFT_OBJC_BRIDGING_HEADER = "JawboneUP/JawboneUP-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
@@ -1446,7 +1446,7 @@
 				CODE_SIGN_ENTITLEMENTS = "JawboneUP/守护鼬Release.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = GP8MR3ZN9E;
 				GCC_PREFIX_HEADER = JawboneUP/Header.pch;
 				INFOPLIST_FILE = JawboneUP/Info.plist;
@@ -1456,7 +1456,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/JawboneUP/UMessage_Sdk_1.5.0a",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.heartcolour.JawboneUP;
 				PRODUCT_NAME = "守护鼬";
 				PROVISIONING_PROFILE = "3f2c81fa-ba6f-495e-89b1-184d107690dd";

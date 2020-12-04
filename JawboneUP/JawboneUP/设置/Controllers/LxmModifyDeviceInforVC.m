@@ -110,11 +110,7 @@
     NSLog(@"%@------长度: %ld",newString,length);
 
     if (textField.tag == 100) {
-        if (length >4) {
-            return NO;
-        }else {
-            return YES;
-        }
+        return YES;
     }else if (textField.tag == 101) {
         if (length > 11) {
             return NO;
@@ -181,10 +177,16 @@
                [SVProgressHUD showErrorWithStatus:@"请输入1~2汉字的设备名称"];
                return;
            }
-           if (_nickNameView.rightTF.text.length > 2) {
-               [SVProgressHUD showErrorWithStatus:@"请输入1~2汉字的设备名称"];
+           
+           NSInteger length = [_nickNameView.rightTF.text charactorNumber];
+           
+           if (length > 4) {
+               
+               [SVProgressHUD showErrorWithStatus:@"设备昵称最多2个中文字符或者4个英文字符"];
                return;
+               
            }
+
            if (_phoneView.rightTF.text.length != 11) {
                [SVProgressHUD showErrorWithStatus:@"请输入11位的紧急联系电话!"];
                return;

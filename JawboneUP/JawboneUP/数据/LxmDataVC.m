@@ -147,10 +147,13 @@
            if (self.deviceArr.count == 1) {
                self.selectDeviceView.titleLabel.text = @"暂无子机";
            } else {
-               self.selectDeviceView.titleLabel.text = self.deviceArr[1].equNickname;
-               self.currentModel = self.deviceArr[1];
-               [self getAllDate];
-               [self getDayDistance:[NSString getFommateYMD:[NSDate date]]];
+               
+               if (self.deviceArr.count > 1) {
+                   self.selectDeviceView.titleLabel.text = self.deviceArr[1].equNickname;
+                   self.currentModel = self.deviceArr[1];
+                   [self getAllDate];
+                   [self getDayDistance:[NSString getFommateYMD:[NSDate date]]];
+               }
            }
        }
     

@@ -39,7 +39,7 @@
         
         _weituotypeBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_nameLab.frame)+5, 12, 69, 20)];
         [_weituotypeBtn setBackgroundImage:[UIImage imageNamed:@"weituo_3"] forState:UIControlStateNormal];
-        [self addSubview:_weituotypeBtn];
+        [self.contentView addSubview:_weituotypeBtn];
         
         
         UIImageView * imgView1 = [[UIImageView alloc] initWithFrame:CGRectMake(85, 46, 24, 24)];
@@ -58,7 +58,7 @@
         [cancelBtn setTitle:@"取消委托" forState:UIControlStateNormal];
         [cancelBtn addTarget:self action:@selector(cancleBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [cancelBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [self addSubview:cancelBtn];
+        [self.contentView addSubview:cancelBtn];
         
         
     }return self;

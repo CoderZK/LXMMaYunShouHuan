@@ -5,98 +5,94 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
-            uuid = "8CD121AE-49D7-4CBD-BCFD-921D04DAA720"
+            uuid = "63FA6A61-3853-44F5-8EBA-9AEB1DA5A50F"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "JawboneUP/BLEManager/LxmBLEManager.m"
+            breakpointStackSelectionBehavior = "1"
+            scope = "1"
+            stopOnStyle = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "84CDDE99-2405-4192-B07E-839DBB77AD8A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JawboneUP/&#x767b;&#x5f55;&#x6ce8;&#x518c;/Views/LxmFujinCell.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "789"
-            endingLineNumber = "789"
-            landmarkName = "-centralManagerDidUpdateState:"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "-btnClick:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "1BBD73DD-EF92-4096-AE0C-55BD7EEC12F6"
+            uuid = "AE642C0D-ABE2-4FCD-996C-A7ED149ED81B"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "JawboneUP/&#x9996;&#x9875;/Controllers/LxmNewHomeVC.m"
+            filePath = "JawboneUP/&#x767b;&#x5f55;&#x6ce8;&#x518c;/Controllers/LxmSearchDeviceVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "576"
-            endingLineNumber = "576"
-            landmarkName = "-showUpdate"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "-viewDidLoad"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "2F850D4A-3B66-4743-9949-67969EA81C50"
+            uuid = "E7F834C2-8DD0-42D6-98B1-A031BF1F7092"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "JawboneUP/&#x9996;&#x9875;/Controllers/LxmNewHomeVC.m"
+            filePath = "JawboneUP/&#x767b;&#x5f55;&#x6ce8;&#x518c;/Controllers/LxmSearchDeviceVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "524"
-            endingLineNumber = "524"
-            landmarkName = "-showUpdate"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
+            landmarkName = "-tableView:numberOfRowsInSection:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "0574504C-B234-416F-936B-38E8E6C6E5B1"
+            uuid = "340B9F78-920A-4460-9751-9F2D88E61774"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "JawboneUP/&#x9996;&#x9875;/Controllers/LxmNewHomeVC.m"
+            filePath = "JawboneUP/&#x8bbe;&#x7f6e;/Controllers/LxmModifyDeviceInforVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "529"
-            endingLineNumber = "529"
-            landmarkName = "-showUpdate"
+            startingLineNumber = "183"
+            endingLineNumber = "183"
+            landmarkName = "-btnClick"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "5D6DA4FC-FC36-4354-8DD7-3B5AB79645EC"
+            uuid = "A4B49555-7647-4587-B171-26A4D38DC485"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "JawboneUP/&#x767b;&#x5f55;&#x6ce8;&#x518c;/Controllers/LxmShengJiSheBeiVC.m"
+            filePath = "JawboneUP/&#x767b;&#x5f55;&#x6ce8;&#x518c;/Controllers/LxmSetSubInfoVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "355"
-            endingLineNumber = "355"
-            landmarkName = "-dfuStateDidChangeTo:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "44ADDA68-7099-473E-BE72-2F420282E85A"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "JawboneUP/&#x9996;&#x9875;/Controllers/LxmNewHomeVC.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "527"
-            endingLineNumber = "527"
-            landmarkName = "-showUpdate"
+            startingLineNumber = "238"
+            endingLineNumber = "238"
+            landmarkName = "-addBtnClick:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

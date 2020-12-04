@@ -154,11 +154,7 @@
     NSLog(@"%@------长度: %ld",newString,length);
 
     if (textField.tag == 100) {
-        if (length >4) {
-            return NO;
-        }else {
-            return YES;
-        }
+        return YES;
     }else if (textField.tag == 101) {
         if (length > 11) {
             return NO;
@@ -180,6 +176,8 @@
 //        }
 //    }
 //}
+
+
 
 //根据正则，过滤特殊字符
 - (NSString *)filterCharactor:(NSString *)string withRegex:(NSString *)regexStr{
@@ -231,19 +229,19 @@
             return;
         }
         if (_nickNameView.rightTF.text.length <= 0) {
-            [SVProgressHUD showErrorWithStatus:@"请输入1~2汉字的设备名称"];
+            [SVProgressHUD showErrorWithStatus:@"设备昵称最多2个中文字符或者4个英文字符"];
             return;
         }
         
-//        if (_nickNameView.rightTF.text.length != 2) {
-//            [SVProgressHUD showErrorWithStatus:@"请输入2个字设备名称"];
-//            return;
-//        }
+        NSInteger length = [_nickNameView.rightTF.text charactorNumber];
         
-        if (_nickNameView.rightTF.text.length > 2) {
-            [SVProgressHUD showErrorWithStatus:@"请输入1~2汉字的设备名称"];
+        if (length > 4) {
+            
+            [SVProgressHUD showErrorWithStatus:@"设备昵称最多2个中文字符或者4个英文字符"];
             return;
+            
         }
+        
         if (_phoneView.rightTF.text.length != 11) {
             [SVProgressHUD showErrorWithStatus:@"请输入11位的联系电话"];
             return;
